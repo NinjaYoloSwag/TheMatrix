@@ -48,7 +48,7 @@
 
     <Button
         android:id="@+id/inside"
-        android:text="adjsut"
+        android:text="adjust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

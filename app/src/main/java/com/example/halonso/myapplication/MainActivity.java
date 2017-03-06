@@ -213,13 +213,15 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                                              if (x < widthbitmap && x >= 0 && y >= 0 && y < heightbitmap) {
                                                  int btmactu = btmpactu.getPixel(x, y);
                                                  int imview = actu.getPixel(x, y);
+                                                 int alphancien=btmactu >>> 24;
                                                  int rancien = (btmactu >> 16) & 0xFF;
                                                  int gancien = (btmactu >> 8) & 0xFF;
                                                  int bancien = btmactu & 0xFF;
+                                                 int newalpha=imview >>> 24;
                                                  int newr = (imview >> 16) & 0xFF;
                                                  int newg = (imview >> 8) & 0xFF;
                                                  int newb = imview & 0xFF;
-                                                 coordonne.setText("(" + x + "," + y + ")\n Avant: (" + rancien + ", " + gancien + ", " + bancien + ")" + "\nApres: (" + newr + ", " + newg + ", " + newb + ")");
+                                                 coordonne.setText("(" + x + "," + y + ")\n Avant: (" +alphancien+", " +rancien + ", " + gancien + ", " + bancien + ")" + "\nApres: (" + newalpha+", " + newr + ", " + newg + ", " + newb + ")");
 
                                              }
                                          } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -300,8 +302,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         Bitmap blanc = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         int[] tabbitmap = new int[200 * 200];
         for (int i = 0; i < 200 * 200; i++) {
-            tabbitmap[i] = 0xFFFFFFFF;
+            tabbitmap[i] = 0xFFFF00FF;
+
         }
+        blanc.setPixels(tabbitmap, 0, 200, 0, 0, 200, 200);
 
         selecteur.add(blanc, resolution);
         image.setImageBitmap(selecteur.getimagetraiement().imagebase);
@@ -504,7 +508,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.fusion:
                 t0 = System.currentTimeMillis();
-                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 50, 50);
+                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 300, 300);
                 image.setImageBitmap(fufu);
                 t1 = System.currentTimeMillis();
                 t2 = t1 - t0;
@@ -1708,9 +1712,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             for (int j = ordonnedevantnouvellebase; j < ordonnedevantnouvellebase + devh; j++) {
                 int colordevant = couleurdevant[(j - ordonnedevantnouvellebase) * devw + i - absciseedevantnouvellebase];
                 int alpha = colordevant >>> 24;
+                int colorderriere = fusion[j * width + i];
+                if(colorderriere!=0){
                 if (alpha != 0) {
-                    double ratio = (double) alpha / 255;
-                    int colorderriere = fusion[j * width + i];
+                    double ratio = alpha / 255.0;
                     int alphaderriere = (colorderriere >>> 24);
                     int bderriere = (colorderriere & 0xFF);
                     int gderriere = (colorderriere >> 8) & 0xFF;
@@ -1724,11 +1729,11 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                     int newalpha = alphaderriere;
                     int newr = (int) ((ratio * rderriere + (1 - ratio) * rdevant) + 0.5);
                     int newg = (int) ((ratio * gderriere + (1 - ratio) * gdevant) + 0.5);
-                    ;
                     int newb = (int) ((ratio * bderriere + (1 - ratio) * bdevant) + 0.5);
-                    ;
                     fusion[j * width + i] = (newalpha << 24) | (newr << 16) | (newg << 8) | newb;
-                } else {
+                }
+                }
+                else {
                     fusion[j * width + i] = colordevant;
                 }
 
@@ -2207,7 +2212,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 if (x2 >= 0 && x2 < Lw && y2 >= 0 && y2 < Lh) {
                     pixels2[y * lw + x] = pixels[i];
                 } else {
-                    pixels2[y * lw + x] = (255 << 24);
+                    pixels2[y * lw + x] = 0;
                 }
             }
         }
@@ -2796,4 +2801,4 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         return b;
     }
 }
-   
+
