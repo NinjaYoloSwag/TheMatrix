@@ -1,5 +1,4 @@
 package com.example.halonso.myapplication;
-//bite
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
