@@ -1,0 +1,86 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="save"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="supprimer"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/redimensionner"
+        android:title="redimensionner"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/fusion"
+        android:title="fusion"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/griser"
+        android:title="griser"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/contraster"
+        android:title="contraster"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/contrasterteinte"
+        android:title="contrasterteinte"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/contour"
+        android:title="contour"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/contour2"
+        android:title="contour2"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/pastel"
+        android:title="pastel"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/pastelintelligent"
+        android:title="pastelintelligent"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/rotation"
+        android:title="rotation"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/grain"
+        android:title="grain"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/contour3"
+        android:title="contour3"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/teinterapide"
+        android:title="teinterapide"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/vieux"
+        android:title="vielle photo"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/lum"
+        android:title="luminosite"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/grisersaufteinte"
+        android:title="ressortirteinte"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/flou"
+        android:title="flou"
+        app:showAsAction="never" />
+
+</menu>
