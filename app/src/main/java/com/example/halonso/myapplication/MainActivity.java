@@ -1,4 +1,5 @@
 package com.example.halonso.myapplication;
+//bite
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             images = new ArrayList<Imagetraitement>();
         }
 
-        public void add(Bitmap b,int density) {
+        public void add(Bitmap b, int density) {
             b.setDensity(density);
             Imagetraitement c = new Imagetraitement(b);
             int pos = cptactu + 1;
@@ -213,12 +214,12 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                                              if (x < widthbitmap && x >= 0 && y >= 0 && y < heightbitmap) {
                                                  int btmactu = btmpactu.getPixel(x, y);
                                                  int imview = actu.getPixel(x, y);
-                                                 int rancien = (btmactu>>16)& 0xFF;
-                                                 int gancien = (btmactu>>8)& 0xFF;
-                                                 int bancien = btmactu&0xFF;
-                                                 int newr = (imview>>16)& 0xFF;
-                                                 int newg = (imview>>8)& 0xFF;
-                                                 int newb = imview& 0xFF;
+                                                 int rancien = (btmactu >> 16) & 0xFF;
+                                                 int gancien = (btmactu >> 8) & 0xFF;
+                                                 int bancien = btmactu & 0xFF;
+                                                 int newr = (imview >> 16) & 0xFF;
+                                                 int newg = (imview >> 8) & 0xFF;
+                                                 int newb = imview & 0xFF;
                                                  coordonne.setText("(" + x + "," + y + ")\n Avant: (" + rancien + ", " + gancien + ", " + bancien + ")" + "\nApres: (" + newr + ", " + newg + ", " + newb + ")");
 
                                              }
@@ -282,19 +283,19 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 findViewById(R.id.bar);
         seekbar1.setMax(1000);
         selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.zoomtest, mutableandnoscalabe), resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.contraste3, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantome, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontraste, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.chats, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.tapir, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontrastedeux, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontrastequatre, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.lenna, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantomecinq, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantomedeux, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.meuf, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.lenna512, mutableandnoscalabe),  resolution);
-        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.melench, mutableandnoscalabe),  resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.contraste3, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantome, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontraste, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.chats, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.tapir, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontrastedeux, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.testcontrastequatre, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.lenna, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantomecinq, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.fantomedeux, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.meuf, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.lenna512, mutableandnoscalabe), resolution);
+        selecteur.add(BitmapFactory.decodeResource(getResources(), R.drawable.melench, mutableandnoscalabe), resolution);
 
 
         Bitmap blanc = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
@@ -424,7 +425,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.redimensionner:
                 btmpactu = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                seekbar1.setProgress(seekbar1.getMax()/5);
+                seekbar1.setProgress(seekbar1.getMax() / 5);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -449,6 +450,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                             }
                         }
                     }
+
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -479,7 +481,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             double valeurseek = (double) i / seekBar.getMax();
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(grisersaufteinte2(btmpactu, 200, 150, 70, 0.17, valeurseek));
@@ -503,7 +505,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.fusion:
                 t0 = System.currentTimeMillis();
-                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 50,50 );
+                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 50, 50);
                 image.setImageBitmap(fufu);
                 t1 = System.currentTimeMillis();
                 t2 = t1 - t0;
@@ -518,7 +520,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             double valeurseek = (double) i / seekBar.getMax();
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(vieeux(btmpactu, valeurseek));
@@ -542,12 +544,12 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.lum://200,150,70,0.17)
                 btmpactu = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                seekbar1.setProgress(seekbar1.getMax()/10);
+                seekbar1.setProgress(seekbar1.getMax() / 10);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             double valeurseek = ((double) i / seekBar.getMax() * 10);
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(lum(btmpactu, valeurseek));
@@ -576,7 +578,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             int valeurseek = (int) (((double) i / seekBar.getMax() * 50) + 0.5);
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(flou(btmpactu, valeurseek));
@@ -673,6 +675,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                             }
                         }
                     }
+
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -693,7 +696,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             double valeurseek = (double) i / seekBar.getMax();
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(derive(contrastercolor(btmpactu, 1), valeurseek));
@@ -721,7 +724,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             int valeurseek = 1 + (int) (((double) i / seekBar.getMax()) * 254);
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(pastel(btmpactu, valeurseek));
@@ -760,6 +763,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                             }
                         }
                     }
+
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -856,10 +860,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                     @Override
                     public void onClick(View v) {
                         System.out.println(couleurs.size());
-                        long t0=System.currentTimeMillis();
-                        int[] tab=new int[size];
-                        intelligentpastelisationtable2pasapas(table,couleurs);
-                        intelligentpastelisationtable2pasapas(table,couleurs);
+                        long t0 = System.currentTimeMillis();
+                        int[] tab = new int[size];
+                        intelligentpastelisationtable2pasapas(table, couleurs);
+                        intelligentpastelisationtable2pasapas(table, couleurs);
                         for (Integer i = 0; i < size; i++) {
                             int anciennecouleur = bitmap[i];
                             Customclass info = table.get(anciennecouleur);
@@ -870,14 +874,13 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                         }
                         zoom.setPixels(tab, 0, width, 0, 0, width, height);
                         long t1 = System.currentTimeMillis();
-                        long t2=t1 - t0;
+                        long t2 = t1 - t0;
                         image.setImageBitmap(zoom);
                         txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + t2 + " " + imageheight + " " + imagewidth);
 
                     }
                 });
-return true;
-
+                return true;
 
 
             case R.id.contour2:
@@ -887,7 +890,7 @@ return true;
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             int valeurseek = (int) ((((double) i / seekBar.getMax()) * 100 * sqrt(3)) + 0.5);
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(contrastercolor(contourepidemique(btmpactu, valeurseek), 1));
@@ -915,7 +918,7 @@ return true;
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
-                        if(fromuser) {
+                        if (fromuser) {
                             int valeurseek = (int) ((((double) i / seekBar.getMax()) * 100 * sqrt(3)) + 0.5);
                             long t0 = System.currentTimeMillis();
                             image.setImageBitmap(contrastercolor(contourepidemique2(btmpactu, valeurseek), 1));
@@ -999,7 +1002,7 @@ return true;
     }
 
 
-    public  Bitmap lum(Bitmap img,double intensite) {
+    public Bitmap lum(Bitmap img, double intensite) {
         int w = img.getWidth();
         int h = img.getHeight();
         Bitmap zoom = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
@@ -1008,18 +1011,18 @@ return true;
         img.getPixels(tab, 0, w, 0, 0, w, h);//Gets the array of the bitmap's pixels
         for (int i = 0; i < w * h; i++) {
             int tmp = tab[i];
-            int alpha= (tmp >>> 24);
-            int blue = (int)(((tmp & 0xFF)* intensite)+0.5);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int green =(int)(((tmp >> 8)& 0xFF)*intensite+0.5); //same for the green component
-            int red = (int)(((tmp >> 16) & 0xFF)*intensite+0.5);//same for the red component
-            if (blue>255){
-                blue=255;
+            int alpha = (tmp >>> 24);
+            int blue = (int) (((tmp & 0xFF) * intensite) + 0.5);//Gets the blue component of the pixel by filtering the integer Color and weight the average
+            int green = (int) (((tmp >> 8) & 0xFF) * intensite + 0.5); //same for the green component
+            int red = (int) (((tmp >> 16) & 0xFF) * intensite + 0.5);//same for the red component
+            if (blue > 255) {
+                blue = 255;
             }
-            if (red>255){
-                red=255;
+            if (red > 255) {
+                red = 255;
             }
-            if (green>255){
-                green=255;
+            if (green > 255) {
+                green = 255;
             }
 
             int final_pix = (alpha << 24) | (red << 16) | (green << 8) | blue;//Makes an integer matching the Color's formatting
@@ -1030,7 +1033,7 @@ return true;
     }
 
 
-    public  Bitmap toGray2(Bitmap img) {//tous les credits vont a Maxime <3
+    public Bitmap toGray2(Bitmap img) {//tous les credits vont a Maxime <3
         int w = img.getWidth();
         int h = img.getHeight();
         Bitmap zoom = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
@@ -1040,35 +1043,30 @@ return true;
 
         for (int i = 0; i < w * h; i++) {
             int tmp = tab[i];
-            int a= tmp >>24;
+            int a = tmp >> 24;
             int blue = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int green = (tmp >> 8)& 0xFF; //same for the green component
+            int green = (tmp >> 8) & 0xFF; //same for the green component
             int red = (tmp >> 16) & 0xFF;//same for the red component
             int max;
-            if (blue>red){
-                if (green>=blue){
-                    max=green;
+            if (blue > red) {
+                if (green >= blue) {
+                    max = green;
+                } else {
+                    max = blue;
                 }
-                else{
-                    max=blue;
-                }
-            }
-            else{
-                if (green>=red){
-                    max=green;
-                }
-                else{
-                    max=red;
+            } else {
+                if (green >= red) {
+                    max = green;
+                } else {
+                    max = red;
                 }
             }
-            int final_pix = (a<<24) | (max << 16) | (max << 8) | max;//Makes an integer matching the Color's formatting
+            int final_pix = (a << 24) | (max << 16) | (max << 8) | max;//Makes an integer matching the Color's formatting
             tab[i] = final_pix;
         }
         zoom.setPixels(tab, 0, w, 0, 0, w, h);
         return zoom;
     }
-
-
 
 
     //On voit une teinte comme un triplet de coeff(proportion)(a,b,c) ≤ 1, 1 veut dire que la composante max, c'est la ou il ya le 1 ex:
@@ -1094,31 +1092,29 @@ return true;
 
         for (int i = 0; i < w * h; i++) {
             int tmp = tab[i];
-            int alpf = tmp>>>24;
-            int blue = tmp& 0xFF;;
-            int green =(tmp>> 8) & 0xFF;
+            int alpf = tmp >>> 24;
+            int blue = tmp & 0xFF;
+            ;
+            int green = (tmp >> 8) & 0xFF;
             int red = (tmp >> 16) & 0xFF;
             int lumpix;
-            if (blue>red){
-                if (green>=blue){
-                    lumpix=green;
+            if (blue > red) {
+                if (green >= blue) {
+                    lumpix = green;
+                } else {
+                    lumpix = blue;
                 }
-                else{
-                    lumpix=blue;
-                }
-            }
-            else{
-                if (green>=red){
-                    lumpix=green;
-                }
-                else{
-                    lumpix=red;
+            } else {
+                if (green >= red) {
+                    lumpix = green;
+                } else {
+                    lumpix = red;
                 }
             }
-            double multiple= lumpix*tata;
-            int newr=(int)((re * multiple)+0.5);
-            int newg=(int)((gre * multiple)+0.5);
-            int newb=(int)((blu * multiple)+0.5);
+            double multiple = lumpix * tata;
+            int newr = (int) ((re * multiple) + 0.5);
+            int newg = (int) ((gre * multiple) + 0.5);
+            int newb = (int) ((blu * multiple) + 0.5);
             tab[i] = Color.argb(alpf, newr, newg, newb);
         }
         zoom.setPixels(tab, 0, w, 0, 0, w, h);
@@ -1140,35 +1136,33 @@ return true;
 
         for (int i = 0; i < w * h; i++) {
             int tmp = tab[i];
-            int alpf = tmp>>>24;
-            int blue = tmp& 0xFF;;
-            int green =(tmp>> 8) & 0xFF;
+            int alpf = tmp >>> 24;
+            int blue = tmp & 0xFF;
+            ;
+            int green = (tmp >> 8) & 0xFF;
             int red = (tmp >> 16) & 0xFF;
             int lumpix;
-            if (blue>red){
-                if (green>=blue){
-                    lumpix=green;
+            if (blue > red) {
+                if (green >= blue) {
+                    lumpix = green;
+                } else {
+                    lumpix = blue;
                 }
-                else{
-                    lumpix=blue;
-                }
-            }
-            else{
-                if (green>=red){
-                    lumpix=green;
-                }
-                else{
-                    lumpix=red;
+            } else {
+                if (green >= red) {
+                    lumpix = green;
+                } else {
+                    lumpix = red;
                 }
             }
-            double multiple= lumpix*tata;
-            double newr=re * multiple;
-            double newg=gre * multiple;
-            double newb=blu * multiple;
+            double multiple = lumpix * tata;
+            double newr = re * multiple;
+            double newg = gre * multiple;
+            double newb = blu * multiple;
 
-            int moyr= (int)((intensite*newr + (1-intensite)*red)+0.5);
-            int moyg= (int)((intensite*newg + (1-intensite)*green)+0.5);
-            int moyb= (int)((intensite*newb + (1-intensite)*blue)+0.5);
+            int moyr = (int) ((intensite * newr + (1 - intensite) * red) + 0.5);
+            int moyg = (int) ((intensite * newg + (1 - intensite) * green) + 0.5);
+            int moyb = (int) ((intensite * newb + (1 - intensite) * blue) + 0.5);
             tab[i] = Color.argb(alpf, moyr, moyg, moyb);
         }
         zoom.setPixels(tab, 0, w, 0, 0, w, h);
@@ -1177,7 +1171,7 @@ return true;
 
 
     Bitmap redimensionner(Bitmap b, int width, int height) {
-        System.out.println(width+ " "+ height);
+        System.out.println(width + " " + height);
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         int ancienheight = b.getHeight();
@@ -1280,7 +1274,7 @@ return true;
         int[] bit = getbitcouleurs(b);
         for (int i : bit) {
             int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (i >> 8)& 0xFF; //same for the green component
+            int greeni = (i >> 8) & 0xFF; //same for the green component
             int redi = (i >> 16) & 0xFF;//same for the red component
             red[redi] += 1;
             green[greeni] += 1;
@@ -1305,10 +1299,10 @@ return true;
         }
         //System.out.println(tabfunctr[21]); sa marche aussi quand sizeb for vaut 0. Je suppose que NAN+a=a
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
+            int tmp = bit[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             int moyenneponderer = (int) (((1.0 - intensite) * ri + intensite * tabfunctr[ri]) + 0.5);
             int moyennepondereg = (int) (((1.0 - intensite) * gi + intensite * tabfunctg[gi]) + 0.5);
@@ -1332,9 +1326,9 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
+            int tmp = bit[i];
             int blui = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (tmp >> 8)& 0xFF; //same for the green component
+            int greeni = (tmp >> 8) & 0xFF; //same for the green component
             int redi = (tmp >> 16) & 0xFF;//same for the red component
             //on récupere le max
             if (blui > greeni) {
@@ -1361,10 +1355,10 @@ return true;
         }
         for (int i = 0; i < size; i++) {
             //la on chope la teinte du pixel comme précédamment en divisant tout par le max, puis on multiplie par les luminance voulue.
-            int tmp=bit[i];
+            int tmp = bit[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             int newbi = 0;
             int newgi = 0;
@@ -1396,9 +1390,9 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
+            int tmp = bit[i];
             int blui = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (tmp >> 8)& 0xFF; //same for the green component
+            int greeni = (tmp >> 8) & 0xFF; //same for the green component
             int redi = (tmp >> 16) & 0xFF;//same for the red component
             //on récupere le max
             if (blui > greeni) {
@@ -1421,10 +1415,10 @@ return true;
         }
         for (int i = 0; i < size; i++) {
             //la on chope la teinte du pixel comme précédamment en divisant tout par le max, puis on multiplie par les luminance voulue.
-            int tmp=bit[i];
+            int tmp = bit[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             int newbi = 0;
             int newri = 0;
@@ -1453,9 +1447,9 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
+            int tmp = bit[i];
             int blui = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (tmp >> 8)& 0xFF; //same for the green component
+            int greeni = (tmp >> 8) & 0xFF; //same for the green component
             int redi = (tmp >> 16) & 0xFF;//same for the red component
             //on récupere le max
             if (blui > greeni) {
@@ -1481,10 +1475,10 @@ return true;
         }
         for (int i = 0; i < size; i++) {
             //la on chope la teinte du pixel comme précédamment en divisant tout par le max, puis on multiplie par les luminance voulue.
-            int tmp=bit[i];
+            int tmp = bit[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             int newbi = 0;
             int newri = 0;
@@ -1520,7 +1514,7 @@ return true;
         int[] bit = getbitcouleurs(b);
         for (int i : bit) {
             int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (i >> 8)& 0xFF; //same for the green component
+            int greeni = (i >> 8) & 0xFF; //same for the green component
             int redi = (i >> 16) & 0xFF;//same for the red component
             if (red[redi] == 0) {
                 nbteinter += 1;
@@ -1578,10 +1572,10 @@ return true;
             max = nbteinter;
         }
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
+            int tmp = bit[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             double conservationcouleurr = (double) (nbteinter / max);// si y'a pas bcp de teinte différente, le contraste n'a pas de sens, c'est ce qui fait que parfois l'égalistaion modifie les couleurs. Du coup moins y'a de teinte bleu, plus on bride l'effet d'égalisation bleu.
             double conservationcouleurg = (double) (nbteinteg / max);
@@ -1615,7 +1609,6 @@ return true;
     }
 
 
-
     public Bitmap grisersaufteinte2(Bitmap btm, int r, int g, int b, double precision, double intensite) {
 
         double seuil = precision * precision * 255 * 255 * 3;
@@ -1625,10 +1618,10 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(btm.getDensity());
         for (int i = 0; i < height * width; i++) {
-            int tmp=couleurs[i];
+            int tmp = couleurs[i];
             int ai = (tmp >>> 24);
             int bi = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int gi = (tmp >> 8)& 0xFF; //same for the green component
+            int gi = (tmp >> 8) & 0xFF; //same for the green component
             int ri = (tmp >> 16) & 0xFF;//same for the red component
             int maxe = 0;
             if (ri > maxe) {
@@ -1714,28 +1707,29 @@ return true;
         //on peint l'avant, mais en controlant avec alpha
         for (int i = absciseedevantnouvellebase; i < absciseedevantnouvellebase + devw; i++) {
             for (int j = ordonnedevantnouvellebase; j < ordonnedevantnouvellebase + devh; j++) {
-                int colordevant=couleurdevant[(j - ordonnedevantnouvellebase) * devw + i - absciseedevantnouvellebase];
-                int alpha=colordevant >>> 24;
-                if (alpha !=0) {
+                int colordevant = couleurdevant[(j - ordonnedevantnouvellebase) * devw + i - absciseedevantnouvellebase];
+                int alpha = colordevant >>> 24;
+                if (alpha != 0) {
                     double ratio = (double) alpha / 255;
-                    int colorderriere=fusion[j * width + i];
+                    int colorderriere = fusion[j * width + i];
                     int alphaderriere = (colorderriere >>> 24);
                     int bderriere = (colorderriere & 0xFF);
-                    int gderriere = (colorderriere >> 8)& 0xFF;
-                    int rderriere = (colorderriere>> 16) & 0xFF;
+                    int gderriere = (colorderriere >> 8) & 0xFF;
+                    int rderriere = (colorderriere >> 16) & 0xFF;
 
 
                     int bdevant = (colordevant & 0xFF);
-                    int gdevant = (colordevant >> 8)& 0xFF;
+                    int gdevant = (colordevant >> 8) & 0xFF;
                     int rdevant = (colordevant >> 16) & 0xFF;
 
-                    int newalpha=alphaderriere;
-                    int newr=(int)((ratio*rderriere + (1-ratio)*rdevant)+0.5);
-                    int newg=(int)((ratio*gderriere + (1-ratio)*gdevant)+0.5);;
-                    int newb=(int)((ratio*bderriere + (1-ratio)*bdevant)+0.5);;
-                    fusion[j * width + i] = (newalpha << 24) | (newr << 16) | (newg<< 8) | newb;
-                }
-                else{
+                    int newalpha = alphaderriere;
+                    int newr = (int) ((ratio * rderriere + (1 - ratio) * rdevant) + 0.5);
+                    int newg = (int) ((ratio * gderriere + (1 - ratio) * gdevant) + 0.5);
+                    ;
+                    int newb = (int) ((ratio * bderriere + (1 - ratio) * bdevant) + 0.5);
+                    ;
+                    fusion[j * width + i] = (newalpha << 24) | (newr << 16) | (newg << 8) | newb;
+                } else {
                     fusion[j * width + i] = colordevant;
                 }
 
@@ -1746,7 +1740,6 @@ return true;
         return zoom;
 
     }
-
 
 
     public Bitmap derive(Bitmap btm, double seuil) {// à effacer?
@@ -1927,7 +1920,6 @@ return true;
     }
 
 
-
     public Bitmap pastel(Bitmap btm, int intensite) {// à faire: au lieu de regarder l ensemble (n/intensitéZ)^3, faudrait creer l'ensemble des couleurs les plus presentes dans l'image.
         int height = btm.getHeight();
         int width = btm.getWidth();
@@ -1937,10 +1929,10 @@ return true;
         int size = height * width;
         int[] bit = getbitcouleurs(btm);
         for (int i = 0; i < size; i++) {
-            int tmp=bit[i];
-            int alpha= tmp >>>24;
+            int tmp = bit[i];
+            int alpha = tmp >>> 24;
             int blui = (tmp & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (tmp >> 8)& 0xFF; //same for the green component
+            int greeni = (tmp >> 8) & 0xFF; //same for the green component
             int redi = (tmp >> 16) & 0xFF;//same for the red component
             int resb;
             int resg;
@@ -2041,14 +2033,14 @@ return true;
 
         int maxb = (colormax & 0xFF);
         int maxg = (colormax >> 8) & 0xFF;
-        int maxr = (colormax>> 16) & 0xFF;
+        int maxr = (colormax >> 16) & 0xFF;
         listecouleur = listecouleur.concat("\n(" + maxr + "," + maxg + "," + maxb + ")");
         //System.out.println(listecouleur);
         //on commence par mettre toute l'image a la plus demandée
         Set<Integer> couleurs = table.keySet();
         for (Integer i : couleurs) {
             int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int greeni = (i >> 8)& 0xFF; //same for the green component
+            int greeni = (i >> 8) & 0xFF; //same for the green component
             int redi = (i >> 16) & 0xFF;//same for the red component
             Customclass info = table.get(i);
             info.projectionr = maxr;
@@ -2064,7 +2056,7 @@ return true;
             colormax = 0;
             for (Integer i : couleurs) {
                 int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-                int greeni = (i >> 8)& 0xFF; //same for the green component
+                int greeni = (i >> 8) & 0xFF; //same for the green component
                 int redi = (i >> 16) & 0xFF;//same for the red component
                 Customclass info = table.get(i);
                 int projectr = info.projectionr;
@@ -2095,13 +2087,13 @@ return true;
             }
             int newblue = (colormax & 0xFF);
             int newgreen = (colormax >> 8) & 0xFF;
-            int newred = (colormax>> 16) & 0xFF;
+            int newred = (colormax >> 16) & 0xFF;
             listecouleur = listecouleur.concat("\n(" + newred + "," + newgreen + "," + newblue + ")");
             //System.out.println(listecouleur);
             for (Integer i : couleurs) {// mise a jour de la table en fonction de la nouvelle couleur
                 Customclass info = table.get(i);
                 int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-                int greeni = (i >> 8)& 0xFF; //same for the green component
+                int greeni = (i >> 8) & 0xFF; //same for the green component
                 int redi = (i >> 16) & 0xFF;//same for the red component
                 double anciennedistance = info.distance;
                 double nouvelledistance = sqrt(((redi - newred) * (redi - newred) + (blui - newblue) * (blui - newblue) + (greeni - newgreen) * (greeni - newgreen)));
@@ -2127,7 +2119,7 @@ return true;
         return zoom;
     }
 
-    public Hashtable<Integer, Customclass> intelligentpastelisationtable2pasapas(Hashtable<Integer, Customclass> table, Set <Integer> couleurs) {// bon y a quand meme un probleme,
+    public Hashtable<Integer, Customclass> intelligentpastelisationtable2pasapas(Hashtable<Integer, Customclass> table, Set<Integer> couleurs) {// bon y a quand meme un probleme,
         // c'est que l'ordre de selection correspond pas vraiment à ce que ferait un humain. Le probleme c'est qu'il faudrait que chaque couleur
         //appel aussi les couleurs voisines mais avec des coefs moins important. ( à faire)
 
@@ -2141,95 +2133,91 @@ return true;
         // recupération max
         double max = 0;
         Integer colormax = 0;
-            for (Integer i : couleurs) {
-                int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-                int greeni = (i >> 8)& 0xFF; //same for the green component
-                int redi = (i >> 16) & 0xFF;//same for the red component
-                Customclass info = table.get(i);
-                int projectr = info.projectionr;
-                int projectg = info.projectiong;
-                int projectb = info.projectionb;
+        for (Integer i : couleurs) {
+            int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
+            int greeni = (i >> 8) & 0xFF; //same for the green component
+            int redi = (i >> 16) & 0xFF;//same for the red component
+            Customclass info = table.get(i);
+            int projectr = info.projectionr;
+            int projectg = info.projectiong;
+            int projectb = info.projectionb;
 
-                double d = sqrt(((redi - projectr) * (redi - projectr)) + ((greeni - projectg) * (greeni - projectg)) + ((blui - projectb) * (blui - projectb))); // la on a la distance entre le pixel et sa valeur d'antan
-                //System.out.println(d);
-                //System.out.println("("+redi +"," +greeni+","+ blui+")");
-                //System.out.println(info.nbpixel);
-                //System.out.println(d);
-                double nbpixfoisd = d * info.nbpixel;
-                if (nbpixfoisd > max) {
-                    max = nbpixfoisd;
-                    colormax = i;
-                }
+            double d = sqrt(((redi - projectr) * (redi - projectr)) + ((greeni - projectg) * (greeni - projectg)) + ((blui - projectb) * (blui - projectb))); // la on a la distance entre le pixel et sa valeur d'antan
+            //System.out.println(d);
+            //System.out.println("("+redi +"," +greeni+","+ blui+")");
+            //System.out.println(info.nbpixel);
+            //System.out.println(d);
+            double nbpixfoisd = d * info.nbpixel;
+            if (nbpixfoisd > max) {
+                max = nbpixfoisd;
+                colormax = i;
             }
-            //System.out.println(colormax);
+        }
+        //System.out.println(colormax);
 
-            if (max == 0) {// si tout est à nul, on peut pas faire mieux, on arrette et on set le pixel
-                return table;
+        if (max == 0) {// si tout est à nul, on peut pas faire mieux, on arrette et on set le pixel
+            return table;
+        }
+        int newblue = (colormax & 0xFF);
+        int newgreen = (colormax >> 8) & 0xFF;
+        int newred = (colormax >> 16) & 0xFF;
+        //listecouleur = listecouleur.concat("\n(" + newred + "," + newgreen + "," + newblue + ")");
+        //System.out.println(newred + "," + newgreen + "," + newblue);
+        for (Integer i : couleurs) {// mise a jour de la table en fonction de la nouvelle couleur
+            Customclass info = table.get(i);
+            int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
+            int greeni = (i >> 8) & 0xFF; //same for the green component
+            int redi = (i >> 16) & 0xFF;//same for the red component
+            double anciennedistance = info.distance;
+            double nouvelledistance = sqrt(((redi - newred) * (redi - newred) + (blui - newblue) * (blui - newblue) + (greeni - newgreen) * (greeni - newgreen)));
+            if (nouvelledistance < anciennedistance) {//modification de ma custom classe à partir de ma hashtable(marche bien)
+                info.distance = nouvelledistance;
+                info.projectionr = newred;
+                info.projectiong = newgreen;
+                info.projectionb = newblue;
+                //System.out.println(table.get(i).projectionb);
+                //System.out.println(newblue);
             }
-            int newblue = (colormax & 0xFF);
-            int newgreen = (colormax >> 8) & 0xFF;
-            int newred = (colormax>> 16) & 0xFF;
-            //listecouleur = listecouleur.concat("\n(" + newred + "," + newgreen + "," + newblue + ")");
-            //System.out.println(newred + "," + newgreen + "," + newblue);
-            for (Integer i : couleurs) {// mise a jour de la table en fonction de la nouvelle couleur
-                Customclass info = table.get(i);
-                int blui = (i & 0xFF);//Gets the blue component of the pixel by filtering the integer Color and weight the average
-                int greeni = (i >> 8)& 0xFF; //same for the green component
-                int redi = (i >> 16) & 0xFF;//same for the red component
-                double anciennedistance = info.distance;
-                double nouvelledistance = sqrt(((redi - newred) * (redi - newred) + (blui - newblue) * (blui - newblue) + (greeni - newgreen) * (greeni - newgreen)));
-                if (nouvelledistance < anciennedistance) {//modification de ma custom classe à partir de ma hashtable(marche bien)
-                    info.distance = nouvelledistance;
-                    info.projectionr = newred;
-                    info.projectiong = newgreen;
-                    info.projectionb = newblue;
-                    //System.out.println(table.get(i).projectionb);
-                    //System.out.println(newblue);
-                }
-            }
+        }
         couleurs.remove(colormax);// ça ne sert à rien d'iterer sur les trucs dont on a deja selectionné la couleur:
         return table;
-        }
+    }
 
-    public Bitmap rotation(Bitmap bmp, double angle){
-        double ang=Math.toRadians(angle);
-        int Lw=bmp.getWidth();
-        int Lh=bmp.getHeight();
-        int pixels[] = new int[Lw*Lh];
+    public Bitmap rotation(Bitmap bmp, double angle) {
+        double ang = Math.toRadians(angle);
+        int Lw = bmp.getWidth();
+        int Lh = bmp.getHeight();
+        int pixels[] = new int[Lw * Lh];
         bmp.getPixels(pixels, 0, Lw, 0, 0, Lw, Lh);
-        int diago=(int)(Math.sqrt(Lw*Lw+Lh*Lh)+0.5);
-        int centre = diago/2;
-        int lh = (int)(Math.abs(Math.sin(ang))*Lw+Math.abs(Math.cos(ang))*Lh)+1;
-        int lw = (int)(Math.abs(Math.cos(ang))*Lw+Math.abs(Math.sin(ang))*Lh)+1;
-        int centreW=lw/2;
-        int centreH=lh/2;
-        Bitmap rota= Bitmap.createBitmap(lw, lh, Bitmap.Config.ARGB_8888);
-        int pixels2[] = new int[lw*lh];
+        int diago = (int) (Math.sqrt(Lw * Lw + Lh * Lh) + 0.5);
+        int centre = diago / 2;
+        int lh = (int) (Math.abs(Math.sin(ang)) * Lw + Math.abs(Math.cos(ang)) * Lh) + 1;
+        int lw = (int) (Math.abs(Math.cos(ang)) * Lw + Math.abs(Math.sin(ang)) * Lh) + 1;
+        int centreW = lw / 2;
+        int centreH = lh / 2;
+        Bitmap rota = Bitmap.createBitmap(lw, lh, Bitmap.Config.ARGB_8888);
+        int pixels2[] = new int[lw * lh];
         rota.getPixels(pixels2, 0, lw, 0, 0, lw, lh);
-        for (int x=0; x<lw; x++){
-            for (int y=0; y<lh; y++){
-                double x1=Math.cos(ang)*(x-centreW)-Math.sin(ang)*(y-centreH)+Lw/2;
-                double y1=Math.sin(ang)*(x-centreW)+Math.cos(ang)*(y-centreH)+Lh/2;
-                int x2=(int)(x1+0.5);
-                int y2=(int)(y1+0.5);
-                int i = y2*Lw+x2;
-                if(x2>=0 && x2<Lw && y2>=0 && y2<Lh){
-                    pixels2[y*lw+x]=pixels[i];
-                }
-                else{
-                    pixels2[y*lw+x]=(255 <<24 );
+        for (int x = 0; x < lw; x++) {
+            for (int y = 0; y < lh; y++) {
+                double x1 = Math.cos(ang) * (x - centreW) - Math.sin(ang) * (y - centreH) + Lw / 2;
+                double y1 = Math.sin(ang) * (x - centreW) + Math.cos(ang) * (y - centreH) + Lh / 2;
+                int x2 = (int) (x1 + 0.5);
+                int y2 = (int) (y1 + 0.5);
+                int i = y2 * Lw + x2;
+                if (x2 >= 0 && x2 < Lw && y2 >= 0 && y2 < Lh) {
+                    pixels2[y * lw + x] = pixels[i];
+                } else {
+                    pixels2[y * lw + x] = (255 << 24);
                 }
             }
         }
         rota.setPixels(pixels2, 0, lw, 0, 0, lw, lh);
-        int decalw=(lw-Lw)/2;
-        int decalh=(lh-Lh)/2;
-        image.scrollTo(decalw-imageposx,decalh-imageposy);
+        int decalw = (lw - Lw) / 2;
+        int decalh = (lh - Lh) / 2;
+        image.scrollTo(decalw - imageposx, decalh - imageposy);
         return rota;
     }
-
-
-
 
 
     public Bitmap contourepidemique(Bitmap b, double seuil) {// cette fonction est encore un echec :( sa fait presque la meme chose qu'un filtre de sobel mais en moins bien et en plus lent
@@ -2242,14 +2230,14 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         boolean[] apasconsiderer = new boolean[size];
-        int depart = (height - 1) * width+1;
+        int depart = (height - 1) * width + 1;
 
         // on barre les bords (pour itérer plus vite sur tout le reste de l'image par la suite)
-        for (int i = 1; i < width-1; i++) {
+        for (int i = 1; i < width - 1; i++) {
             apasconsiderer[i] = true;
             apasconsiderer[depart++] = true;
         }
-        depart = width-1;
+        depart = width - 1;
         int cpt = 0;
         while (depart < size) {
             apasconsiderer[depart] = true;
@@ -2284,7 +2272,7 @@ return true;
 
                     //traitement individiuelle récursif du bas
                     if (apasconsiderer[pixb] == false) {
-                        if (res[pixb]!=0){// on a rencontré un pixel qui à été marqué comme contour
+                        if (res[pixb] != 0) {// on a rencontré un pixel qui à été marqué comme contour
                             contours.add(pixb);
                         }
                         int couleurbas = bit[pixb];
@@ -2295,7 +2283,7 @@ return true;
                         if (dist <= 0) {
                             cptconnexe++;
                             listeafair.add(pixb);// on l'appelle, et si avant on avait considérer sa comme un contour, on le le change. On s'arrange pour ne plus le rappeler plus tard
-                            res[pixb]=0;
+                            res[pixb] = 0;
                             apasconsiderer[pixb] = true;
                         } else {//si ça passe pas, c'est que c'est actuellement un contour
                             res[pixb] = (int) (dist + 0.5);
@@ -2305,7 +2293,7 @@ return true;
                     }
                     //traitement recursif haut
                     if (apasconsiderer[pixh] == false) {
-                        if (res[pixh]!=0){// on a rencontré un pixel qui à été marqué comme contour
+                        if (res[pixh] != 0) {// on a rencontré un pixel qui à été marqué comme contour
                             contours.add(pixh);
                         }
                         int couleurhaut = bit[pixh];
@@ -2327,7 +2315,7 @@ return true;
 
                     //traitment gauche
                     if (apasconsiderer[pixg] == false) {
-                        if (res[pixg]!=0){// on a rencontré un pixel qui à été marqué comme contour
+                        if (res[pixg] != 0) {// on a rencontré un pixel qui à été marqué comme contour
                             contours.add(pixg);
                         }
                         int couleurgauche = bit[pixg];
@@ -2349,7 +2337,7 @@ return true;
 
                     //traitement droite
                     if (apasconsiderer[pixd] == false) {
-                        if (res[pixd]!=0){// on a rencontré un pixel qui à été marqué comme contour
+                        if (res[pixd] != 0) {// on a rencontré un pixel qui à été marqué comme contour
                             contours.add(pixd);
                         }
                         int couleurdroit = bit[pixd];
@@ -2360,7 +2348,7 @@ return true;
                         if (dist <= 0) {
                             cptconnexe++;
                             listeafair.add(pixd);// on l'appelle, et si avant on avait considérer sa comme un contour, on le le change. On s'arrange pour ne plus le rappeler plus tard
-                            res[pixd]=0;
+                            res[pixd] = 0;
                             apasconsiderer[pixd] = true;
                         } else {//si ça passe pas, c'est que c'est actuellement un contour
                             res[pixd] = (int) (dist + 0.5);
@@ -2382,9 +2370,9 @@ return true;
                 }
             }
         }
-        for ( int i=0 ; i<size;i++){
+        for (int i = 0; i < size; i++) {
 
-            res[i]= ((bit[i]>>>24) <<24) | (res[i] << 16) | (res[i] << 8) | res[i];
+            res[i] = ((bit[i] >>> 24) << 24) | (res[i] << 16) | (res[i] << 8) | res[i];
         }
         zoom.setPixels(res, 0, width, 0, 0, width, height);
         return zoom;
@@ -2400,14 +2388,14 @@ return true;
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         boolean[] apasconsiderer = new boolean[size];
-        int depart = (height - 1) * width+1;
+        int depart = (height - 1) * width + 1;
 
         // on barre les bords (pour itérer plus vite sur tout le reste de l'image par la suite)
-        for (int i = 1; i < width-1; i++) {
+        for (int i = 1; i < width - 1; i++) {
             apasconsiderer[i] = true;
             apasconsiderer[depart++] = true;
         }
-        depart = width-1;
+        depart = width - 1;
         int cpt = 0;
         while (depart < size) {
             apasconsiderer[depart] = true;
@@ -2515,7 +2503,7 @@ return true;
                 //la on a notre liste de contours dans cette composante connexe
                 if (cptconnexe > 20) {//si c'est une compo assez grande, pour chaque contour, on le laisse à sa valeur et on le passe en mur infranchissable:
                     for (Integer contour : contours) {
-                        apasconsiderer[contour]=true;
+                        apasconsiderer[contour] = true;
                     }
 
                 } else {
@@ -2526,9 +2514,9 @@ return true;
                 }
             }
         }
-        for ( int i=0 ; i<size;i++){
+        for (int i = 0; i < size; i++) {
 
-            res[i]= ((bit[i]>>>24) <<24) | (res[i] << 16) | (res[i] << 8) | res[i];
+            res[i] = ((bit[i] >>> 24) << 24) | (res[i] << 16) | (res[i] << 8) | res[i];
         }
         zoom.setPixels(res, 0, width, 0, 0, width, height);
         return zoom;
@@ -2538,65 +2526,61 @@ return true;
 //bon, ben j'essayerai un dernier truc avant de fair un filtre de canny pour les contours, sa me saoul!
 
 
-
     public Bitmap grain(Bitmap b, int intensite) {// bon les appelles de random sont super longs. La question est donc comment fais un truc aléatoire sans random
-        Random gen=new Random();
+        Random gen = new Random();
         int w = b.getWidth();
         int h = b.getHeight();
         Bitmap zoom = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
-        int size=h*w;
+        int size = h * w;
         int[] tab = new int[size];
         b.getPixels(tab, 0, w, 0, 0, w, h);//Gets the array of the bitmap's pixels
         for (int i = 0; i < size; i++) {
             int tmp = tab[i];
-            int a = tmp >>>24;
+            int a = tmp >>> 24;
             int blue = tmp & 0xFF;//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int green = (tmp >>8)& 0xFF;//same for the green component
-            int red = (tmp>>16) & 0xFF;//same for the red component
-            if (gen.nextInt(2)==0) {
+            int green = (tmp >> 8) & 0xFF;//same for the green component
+            int red = (tmp >> 16) & 0xFF;//same for the red component
+            if (gen.nextInt(2) == 0) {
                 blue -= gen.nextInt(intensite);
-            }
-            else {
+            } else {
                 blue += gen.nextInt(intensite);
             }
-            if (gen.nextInt(2)==0) {
+            if (gen.nextInt(2) == 0) {
                 green -= gen.nextInt(intensite);
-            }
-            else {
+            } else {
                 green += gen.nextInt(intensite);
             }
-            if (gen.nextInt(2)==0) {
+            if (gen.nextInt(2) == 0) {
                 red -= gen.nextInt(intensite);
-            }
-            else {
+            } else {
                 red += gen.nextInt(intensite);
             }
-            if (red>255) {
+            if (red > 255) {
                 red = 255;
             }
-            if (green>255) {
+            if (green > 255) {
                 green = 255;
             }
-            if (blue>255) {
+            if (blue > 255) {
                 blue = 255;
             }
 
-            if (red<0) {
+            if (red < 0) {
                 red = 0;
             }
-            if (blue<0) {
+            if (blue < 0) {
                 blue = 0;
             }
-            if (green<0) {
+            if (green < 0) {
                 green = 0;
             }
 
-            int final_pix = (a<<24) | (red << 16) | (green << 8) | blue;//Makes an integer matching the Color's formatting
+            int final_pix = (a << 24) | (red << 16) | (green << 8) | blue;//Makes an integer matching the Color's formatting
             tab[i] = final_pix;
         }
         zoom.setPixels(tab, 0, w, 0, 0, w, h);
-        return  zoom;
+        return zoom;
     }
 
     public Bitmap grain2(Bitmap b, int intensite) {// bon les appelles de random sont super longs. La question est donc comment fais un truc aléatoire sans random
@@ -2604,122 +2588,117 @@ return true;
         int h = b.getHeight();
         Bitmap zoom = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
-        int size=h*w;
+        int size = h * w;
         int[] tab = new int[size];
         b.getPixels(tab, 0, w, 0, 0, w, h);//Gets the array of the bitmap's pixels
-        int seed=0;
-        int seed2=0;
-        int seed3=1;
+        int seed = 0;
+        int seed2 = 0;
+        int seed3 = 1;
         for (int i = 0; i < size; i++) {
-             if (seed>10){
-                seed=0;
+            if (seed > 10) {
+                seed = 0;
             }
             seed++;
             int tmp = tab[i];
-            int a = tmp >>>24;
+            int a = tmp >>> 24;
             int blue = tmp & 0xFF;//Gets the blue component of the pixel by filtering the integer Color and weight the average
-            int green = (tmp >>8)& 0xFF;//same for the green component
-            int red = (tmp>>16) & 0xFF;//same for the red component
+            int green = (tmp >> 8) & 0xFF;//same for the green component
+            int red = (tmp >> 16) & 0xFF;//same for the red component
 //la on chope un entier < size en faisant n'importe quoi; on est obligé de faire un truc pour travailler sur un pixel éloigné au hasard, sinon y'a
 // (dans de rare cas) des effets locaux étrange si l'image comporte de large zone exactement de la meme couleur
             // la du coup c'est mieux, mais y'a encore des trucs bizarre
-            int pixpseudoaleatoire= seed*(blue+green-red)+seed2+seed3;
-            if (pixpseudoaleatoire<0){
-                pixpseudoaleatoire=-pixpseudoaleatoire;
+            int pixpseudoaleatoire = seed * (blue + green - red) + seed2 + seed3;
+            if (pixpseudoaleatoire < 0) {
+                pixpseudoaleatoire = -pixpseudoaleatoire;
             }
-            pixpseudoaleatoire=pixpseudoaleatoire%size;
-            int randomcolor=tab[pixpseudoaleatoire];
-            int randb= randomcolor & 0xFF;
-            int randr= (randomcolor>>16) & 0xFF;
-            int pseudoaleatoire=seed*(randb+green-randr)+seed2+seed3;
-            int valeur=pseudoaleatoire%intensite;
+            pixpseudoaleatoire = pixpseudoaleatoire % size;
+            int randomcolor = tab[pixpseudoaleatoire];
+            int randb = randomcolor & 0xFF;
+            int randr = (randomcolor >> 16) & 0xFF;
+            int pseudoaleatoire = seed * (randb + green - randr) + seed2 + seed3;
+            int valeur = pseudoaleatoire % intensite;
             //ajouté ou soustraire
 
-            if ((pseudoaleatoire & 0x1)==0){
-                blue-=valeur;
-            }
-            else{
-                blue+=valeur;
-            }
-
-            if ((seed2 & 0x1)==0){
-                green-=valeur;
-            }
-            else{
-                green+=valeur;
+            if ((pseudoaleatoire & 0x1) == 0) {
+                blue -= valeur;
+            } else {
+                blue += valeur;
             }
 
-            if ((seed3 & 0x1)==0){
-                red-=valeur;
+            if ((seed2 & 0x1) == 0) {
+                green -= valeur;
+            } else {
+                green += valeur;
             }
-            else{
-                red+=valeur;
+
+            if ((seed3 & 0x1) == 0) {
+                red -= valeur;
+            } else {
+                red += valeur;
             }
 
 
+            seed2 = seed3;
+            seed3 = pixpseudoaleatoire;
 
-
-            seed2= seed3;
-            seed3=pixpseudoaleatoire;
-
-            if (red>255) {
+            if (red > 255) {
                 red = 255;
             }
-            if (green>255) {
+            if (green > 255) {
                 green = 255;
             }
-            if (blue>255) {
+            if (blue > 255) {
                 blue = 255;
             }
 
-            if (red<0) {
+            if (red < 0) {
                 red = 0;
             }
-            if (blue<0) {
+            if (blue < 0) {
                 blue = 0;
             }
-            if (green<0) {
+            if (green < 0) {
                 green = 0;
             }
 
-            int final_pix = (a<<24) | (red << 16) | (green << 8) | blue;//Makes an integer matching the Color's formatting
+            int final_pix = (a << 24) | (red << 16) | (green << 8) | blue;//Makes an integer matching the Color's formatting
             tab[i] = final_pix;
         }
         zoom.setPixels(tab, 0, w, 0, 0, w, h);
-        return  zoom;
+        return zoom;
     }
 
     public Bitmap vieeux(Bitmap b, double intensite) {
-        return teintrapidelegere(flou(grain2(toGray2(b),30),3),112,66,20,intensite);
+        return teintrapidelegere(flou(grain2(toGray2(b), 30), 3), 112, 66, 20, intensite);
         // return teintrapidelegere(b, 112,66,20,intensite);
     }
 
-    public Bitmap flou (Bitmap b, int intensite){//ça, c'étais pour apprendre à iterer en cercle, en vrai faut faire avec les carrés.
+    public Bitmap flou(Bitmap b, int intensite) {//ça, c'étais pour apprendre à iterer en cercle, en vrai faut faire avec les carrés.
         int width = b.getWidth();
         int height = b.getHeight();
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
-        int size=height*width;
+        int size = height * width;
         int[] tab = new int[size];
-        double[] tabledescordes=new double[intensite+1];
-        int[]res=new int[size];
-        for (int i=0;i<intensite+1;i++){
-            tabledescordes[i]=sqrt(intensite*intensite-(i*i));
+        double[] tabledescordes = new double[intensite + 1];
+        int[] res = new int[size];
+        for (int i = 0; i < intensite + 1; i++) {
+            tabledescordes[i] = sqrt(intensite * intensite - (i * i));
         }
-        for (int i=0; i<intensite+1; i++){
+        for (int i = 0; i < intensite + 1; i++) {
             //System.out.println(i+ " " +tabledescordes[i]);
         }
 
         b.getPixels(tab, 0, width, 0, 0, width, height);//Gets the array of the bitmap's pixels
-        int x=0;
-        int y=0;
-        int haut=0;
-        int bas=intensite;
-        for (int i=0; i<size; i++,x++){
+        int x = 0;
+        int y = 0;
+        int haut = 0;
+        int bas = intensite;
+        for (int i = 0; i < size; i++, x++) {
 
-            if (x>=width){
-                x=0;
-                if (y>intensite){
+            if (x >= width) {
+                x = 0;
+                if (y > intensite) {
                     haut++;
                 }
                 y++;
@@ -2728,87 +2707,88 @@ return true;
             //System.out.println(x +" "+ y);
 
             int tmp = tab[i];
-            int a = tmp >>>24;
-            int sommer=(tmp>>16) & 0xFF;
-            int sommeg=(tmp >>8)& 0xFF;
-            int sommeb=tmp & 0xFF;;
-            int cpt=1;
+            int a = tmp >>> 24;
+            int sommer = (tmp >> 16) & 0xFF;
+            int sommeg = (tmp >> 8) & 0xFF;
+            int sommeb = tmp & 0xFF;
+            ;
+            int cpt = 1;
 
 
-            if (bas>=height){//= ???
-                bas=height-1;//-1?
+            if (bas >= height) {//= ???
+                bas = height - 1;//-1?
             }
 
             //System.out.println(bas +" "+ haut + " " + y);
             //System.out.println("autre pixel");
-            int cpty=1;
+            int cpty = 1;
 
-            for (int ity=bas-y; ity> haut-y; ity--){// on va itérer sur un cercle autour de la zone actuelle.(pour cela, on iterere sur la verticalité du cerle, puis
+            for (int ity = bas - y; ity > haut - y; ity--) {// on va itérer sur un cercle autour de la zone actuelle.(pour cela, on iterere sur la verticalité du cerle, puis
                 //grace à pythagore on calcule la corde à cette endroit du cercle;
                 //ystem.out.println(ity);
-                int absity=ity;
-                if (ity<0){
-                    absity=-ity;
+                int absity = ity;
+                if (ity < 0) {
+                    absity = -ity;
                 }
-                int corde=(int)tabledescordes[absity];
+                int corde = (int) tabledescordes[absity];
 
                 // la on a la longueur sur laquelle itérer, faut faire attention à pas dépasser;
-                int gauche = x-corde;
-                if (gauche<0){
-                    gauche=0;
+                int gauche = x - corde;
+                if (gauche < 0) {
+                    gauche = 0;
                 }
-                int droite=x+corde;
-                if (droite>=width){//>?
-                    droite=width-1;//+1 -1??
+                int droite = x + corde;
+                if (droite >= width) {//>?
+                    droite = width - 1;//+1 -1??
                 }
 
                 //System.out.println(droite);
-                for (int itx=gauche; itx<droite; itx++){
-                    int colorit=tab[itx + width* (ity+y)];// à améliorer pour pas calculer width puis 2 width puis 3 width, mais juste +=width.
-                    int rit=(colorit>>16) & 0xFF;
-                    int git=(colorit >>8)& 0xFF;
-                    int bit=colorit & 0xFF;
+                for (int itx = gauche; itx < droite; itx++) {
+                    int colorit = tab[itx + width * (ity + y)];// à améliorer pour pas calculer width puis 2 width puis 3 width, mais juste +=width.
+                    int rit = (colorit >> 16) & 0xFF;
+                    int git = (colorit >> 8) & 0xFF;
+                    int bit = colorit & 0xFF;
 
-                    sommeb+=bit;
-                    sommeg+=git;
-                    sommer+=rit;
+                    sommeb += bit;
+                    sommeg += git;
+                    sommer += rit;
                     cpt++;
                 }
             }
-            int newr=(int)(((double)sommer/cpt)+0.5);
-            int newb=(int)(((double)sommeb/cpt)+0.5);
-            int newg=(int)(((double)sommeg/cpt)+0.5);
-            res[i]= (a<<24) | (newr << 16) | (newg << 8) | newb;
+            int newr = (int) (((double) sommer / cpt) + 0.5);
+            int newb = (int) (((double) sommeb / cpt) + 0.5);
+            int newg = (int) (((double) sommeg / cpt) + 0.5);
+            res[i] = (a << 24) | (newr << 16) | (newg << 8) | newb;
         }
         zoom.setPixels(res, 0, width, 0, 0, width, height);
         return zoom;
     }
 
-    public Bitmap flourapide (Bitmap b, int intensite){//on va essayer de pas repasser 800 fois sur le meme pixel.
+    public Bitmap flourapide(Bitmap b, int intensite) {//on va essayer de pas repasser 800 fois sur le meme pixel.
         int width = b.getWidth();
         int height = b.getHeight();
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
-        int size=height*width;
+        int size = height * width;
         int[] tab = new int[size];
-        double[] tabledescordes=new double[intensite+1];
-        int[]res=new int[size];
-        int x=0;
-        int y=0;
-        int haut=0;
-        int bas=intensite;
-        for (int i=0; i<size; i++){
-            if (x>=width){
-                x=0;
-                if (y>intensite){
+        double[] tabledescordes = new double[intensite + 1];
+        int[] res = new int[size];
+        int x = 0;
+        int y = 0;
+        int haut = 0;
+        int bas = intensite;
+        for (int i = 0; i < size; i++) {
+            if (x >= width) {
+                x = 0;
+                if (y > intensite) {
                     haut++;
                 }
                 y++;
                 bas++;
             }
 
-            if (bas>=height){//= ???
-                bas=height-1;//-1?
+            if (bas >= height) {//= ???
+                bas = height - 1;//-1?
             }
 
             int gauche;
@@ -2816,6 +2796,5 @@ return true;
         }
         return b;
     }
-
 }
-
+   
