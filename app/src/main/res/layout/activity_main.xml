@@ -92,6 +92,14 @@
         android:layout_above="@+id/bar"
         android:id="@+id/coordonne" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/coordonne"
+        android:id="@+id/nouveaupixel" />
+
+
     <Button
         android:id="@+id/addcolor"
         android:text="addcolor"

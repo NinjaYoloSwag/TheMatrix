@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
     int resolution;
     TextView txt;
     TextView coordonne;
+    TextView nouveaupix;
     Selecteur selecteur;
     SeekBar seekbar1 = null;
     Bitmap btmpactu; // ce bitmap permet de stocké l'image avant un résultat.
@@ -178,103 +179,106 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
         imageheight = image.getHeight();
         imagewidth = image.getWidth();//marche pas : met a 0
-        coordonne = (TextView)
+        coordonne = (TextView) findViewById(R.id.coordonne);
+        nouveaupix= (TextView) findViewById(R.id.nouveaupixel);
 
-                findViewById(R.id.coordonne);
+        image.setOnTouchListener(new View.OnTouchListener() {
+            int debutx, debuty;
+            int posx;
+            int posy;
+            int cptfauxmoovex;
+            int cptfauxmoovey;
 
-        image.setOnTouchListener(new View.OnTouchListener()
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Bitmap actu = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                int heightbitmap = actu.getHeight();
+                int widthbitmap = actu.getWidth();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int xt = (int) (event.getX() + 0.5);
+                    int yt = (int) (event.getY() + 0.5);
+                    debutx = xt;
+                    posx = xt;
+                    debuty = yt;
+                    posy = yt;
+                    cptfauxmoovex = 0;
+                    cptfauxmoovey = 0;
+                    //la, c'est les coordonnées dan l'image view.
+                    //image.scrollTo(x,y);
+                    //x dans la bitmap=x-
+                    int x = xt - imageposx;
+                    int y = yt - imageposy;
+                    if (x < widthbitmap && x >= 0 && y >= 0 && y < heightbitmap) {
 
-                                 {
-                                     int debutx, debuty;
-                                     int posx;
-                                     int posy;
-                                     int cptfauxmoovex;
-                                     int cptfauxmoovey;
+                        int imview = actu.getPixel(x, y);
 
-                                     @Override
-                                     public boolean onTouch(View v, MotionEvent event) {
-                                         Bitmap actu = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                                         int heightbitmap = actu.getHeight();
-                                         int widthbitmap = actu.getWidth();
-                                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                                             int xt = (int) (event.getX() + 0.5);
-                                             int yt = (int) (event.getY() + 0.5);
-                                             debutx = xt;
-                                             posx = xt;
-                                             debuty = yt;
-                                             posy = yt;
-                                             cptfauxmoovex = 0;
-                                             cptfauxmoovey = 0;
-                                             //la, c'est les coordonnées dan l'image view.
-                                             //image.scrollTo(x,y);
-                                             //x dans la bitmap=x-
-                                             int x = xt - imageposx;
-                                             int y = yt - imageposy;
-                                             if (x < widthbitmap && x >= 0 && y >= 0 && y < heightbitmap) {
-                                                 int btmactu = btmpactu.getPixel(x, y);
-                                                 int imview = actu.getPixel(x, y);
-                                                 int alphancien=btmactu >>> 24;
-                                                 int rancien = (btmactu >> 16) & 0xFF;
-                                                 int gancien = (btmactu >> 8) & 0xFF;
-                                                 int bancien = btmactu & 0xFF;
-                                                 int newalpha=imview >>> 24;
-                                                 int newr = (imview >> 16) & 0xFF;
-                                                 int newg = (imview >> 8) & 0xFF;
-                                                 int newb = imview & 0xFF;
-                                                 coordonne.setText("(" + x + "," + y + ")\n Avant: (" +alphancien+", " +rancien + ", " + gancien + ", " + bancien + ")" + "\nApres: (" + newalpha+", " + newr + ", " + newg + ", " + newb + ")");
+                        int newalpha=imview >>> 24;
+                        int newr = (imview >> 16) & 0xFF;
+                        int newg = (imview >> 8) & 0xFF;
+                        int newb = imview & 0xFF;
+                        nouveaupix.setText("Apres: (" + newalpha+", " + newr + ", " + newg + ", " + newb + ")");
+                    }
+                    if (x<btmpactu.getWidth()  && x >= 0 && y >= 0 && y < btmpactu.getHeight() ) {
+                        int btmactu = btmpactu.getPixel(x, y);
+                        int alphancien = btmactu >>> 24;
+                        int rancien = (btmactu >> 16) & 0xFF;
+                        int gancien = (btmactu >> 8) & 0xFF;
+                        int bancien = btmactu & 0xFF;
+                        coordonne.setText("(" + x + "," + y + ")\n Avant: (" + alphancien + ", " + rancien + ", " + gancien + ", " + bancien + ")");
+                    }
+                    else{
+                        coordonne.setText("n'éxistait pas!");
+                    }
+                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    int x = (int) (event.getX() + 0.5);
+                    int y = (int) (event.getY() + 0.5);
+                    int dx = x - posx;
+                    int dy = y - posy;
+                    int decalagex = posx - debutx + imageposx - cptfauxmoovex;//vrai position de l'image dans l'écran
+                    int decalagey = posy - debuty + imageposy - cptfauxmoovey;
 
-                                             }
-                                         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                                             int x = (int) (event.getX() + 0.5);
-                                             int y = (int) (event.getY() + 0.5);
-                                             int dx = x - posx;
-                                             int dy = y - posy;
-                                             int decalagex = posx - debutx + imageposx - cptfauxmoovex;//vrai position de l'image dans l'écran
-                                             int decalagey = posy - debuty + imageposy - cptfauxmoovey;
+                    int margex = 300;//ici on regle la marge
+                    int margey = 300;
+                    // à fair pur clarifier; aussi, non seulement dx=0 mais aussi ramener pos sur le mur (sinon on peut depasser le mur)
+                    int murgauche = -widthbitmap + margex;
+                    int murdroit = imagewidth - margex;
+                    coordonne.setText(decalagex + " " + decalagey);
+                    int murhaut = -heightbitmap + margey;
+                    int murbas = imageheight - margey;
+                    posx += dx;
+                    posy += dy;
+                    if (-dx < 0) {
+                        if (decalagex - dx > murdroit) {
+                            cptfauxmoovex += dx;
+                            dx = 0;
+                        }
+                    } else {
+                        if (decalagex - dx < murgauche) {
+                            cptfauxmoovex += dx;
+                            dx = 0;
+                        }
+                    }
+                    if (-dy < 0) {
+                        if (decalagey - dy > murbas) {
+                            cptfauxmoovey += dy;
+                            dy = 0;
+                        }
+                    } else {
+                        if (decalagey - dy < murhaut) {
+                            cptfauxmoovey += dy;
+                            dy = 0;
+                        }
+                    }
+                    image.scrollBy(-dx, -dy);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    imageposx += posx - debutx - cptfauxmoovex;
+                    imageposy += posy - debuty - cptfauxmoovey;
+                }
+                return true;
 
-                                             int margex = 300;//ici on regle la marge
-                                             int margey = 300;
-                                             // à fair pur clarifier; aussi, non seulement dx=0 mais aussi ramener pos sur le mur (sinon on peut depasser le mur)
-                                             int murgauche = -widthbitmap + margex;
-                                             int murdroit = imagewidth - margex;
-                                             coordonne.setText(decalagex + " " + decalagey);
-                                             int murhaut = -heightbitmap + margey;
-                                             int murbas = imageheight - margey;
-                                             posx += dx;
-                                             posy += dy;
-                                             if (-dx < 0) {
-                                                 if (decalagex - dx > murdroit) {
-                                                     cptfauxmoovex += dx;
-                                                     dx = 0;
+            }
+        }
 
-                                                 }
-                                             } else {
-                                                 if (decalagex - dx < murgauche) {
-                                                     cptfauxmoovex += dx;
-                                                     dx = 0;
-                                                 }
-                                             }
-
-                                             if (-dy < 0) {
-                                                 if (decalagey - dy > murbas) {
-                                                     cptfauxmoovey += dy;
-                                                     dy = 0;
-                                                 }
-                                             } else {
-                                                 if (decalagey - dy < murhaut) {
-                                                     cptfauxmoovey += dy;
-                                                     dy = 0;
-                                                 }
-                                             }
-                                             image.scrollBy(-dx, -dy);
-                                         } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                                             imageposx += posx - debutx - cptfauxmoovex;
-                                             imageposy += posy - debuty - cptfauxmoovey;
-                                         }
-                                         return true;
-
-                                     }
-                                 }
 
         );
         txt = (TextView)
@@ -460,7 +464,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-
                     }
                 });
                 return true;
