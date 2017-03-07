@@ -426,7 +426,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 image.setImageBitmap(selecteur.getimagetraiement().imagebase);
                 return true;
 
-            case R.id.redimensionner:
+            case R.id.redimensionner://mettre à jour postioion dans imview
                 btmpactu = ((BitmapDrawable) image.getDrawable()).getBitmap();
                 seekbar1.setProgress(seekbar1.getMax() / 5);
                 seekbar1.setVisibility(View.VISIBLE);
@@ -438,7 +438,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                             if (valeurseek != 0) {
                                 int w = btmpactu.getWidth();
                                 int h = btmpactu.getHeight();
-                                System.out.println(w + " " + h + " " + valeurseek);
                                 int newWidth = (int) ((w * valeurseek) + 0.5);
                                 int newHeight = (int) ((h * valeurseek) + 0.5);
                                 int decalw = (newWidth - w) / 2;
@@ -508,7 +507,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.fusion:
                 t0 = System.currentTimeMillis();
-                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 300, 300);
+                Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 300, 0);
                 image.setImageBitmap(fufu);
                 t1 = System.currentTimeMillis();
                 t2 = t1 - t0;
@@ -778,7 +777,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 });
                 return true;
 
-            case R.id.rotation:
+            case R.id.rotation://mettre à jour position dans imview
                 btmpactu = ((BitmapDrawable) image.getDrawable()).getBitmap();
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
@@ -1174,7 +1173,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
     Bitmap redimensionner(Bitmap b, int width, int height) {
-        System.out.println(width + " " + height);
         Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         zoom.setDensity(b.getDensity());
         int ancienheight = b.getHeight();
@@ -1713,8 +1711,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 int colordevant = couleurdevant[(j - ordonnedevantnouvellebase) * devw + i - absciseedevantnouvellebase];
                 int alpha = colordevant >>> 24;
                 int colorderriere = fusion[j * width + i];
-                if(colorderriere!=0){
-                if (alpha != 0) {
+                if (alpha != 255) {
                     double ratio = alpha / 255.0;
                     int alphaderriere = (colorderriere >>> 24);
                     int bderriere = (colorderriere & 0xFF);
@@ -1727,12 +1724,12 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                     int rdevant = (colordevant >> 16) & 0xFF;
 
                     int newalpha = alphaderriere;
-                    int newr = (int) ((ratio * rderriere + (1 - ratio) * rdevant) + 0.5);
-                    int newg = (int) ((ratio * gderriere + (1 - ratio) * gdevant) + 0.5);
-                    int newb = (int) ((ratio * bderriere + (1 - ratio) * bdevant) + 0.5);
+                    int newr = (int) (((1 - ratio) * rderriere + ratio * rdevant) + 0.5);
+                    int newg = (int) (((1-ratio) * gderriere + ratio * gdevant) + 0.5);
+                    int newb = (int) (((1-ratio) * bderriere + ratio * bdevant) + 0.5);
                     fusion[j * width + i] = (newalpha << 24) | (newr << 16) | (newg << 8) | newb;
                 }
-                }
+
                 else {
                     fusion[j * width + i] = colordevant;
                 }
