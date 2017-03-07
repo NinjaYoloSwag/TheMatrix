@@ -1723,7 +1723,15 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                     int gdevant = (colordevant >> 8) & 0xFF;
                     int rdevant = (colordevant >> 16) & 0xFF;
 
-                    int newalpha = alphaderriere;
+                    int newalpha;
+
+                    if (alphaderriere > alpha){
+                        newalpha= alphaderriere;
+                    }
+                    else{
+                        newalpha=alpha;
+                    }
+
                     int newr = (int) (((1 - ratio) * rderriere + ratio * rdevant) + 0.5);
                     int newg = (int) (((1-ratio) * gderriere + ratio * gdevant) + 0.5);
                     int newb = (int) (((1-ratio) * bderriere + ratio * bdevant) + 0.5);
