@@ -790,6 +790,14 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                         double valeurseek = ((double) i / seekBar.getMax()) * 180;
                         if (fromuser) {
                             if (valeurseek != 0) {
+                                int Lw=btmpactu.getWidth();
+                                int Lh=btmpactu.getHeight();
+                                double ang = Math.toRadians(valeurseek);
+                                int lh = (int) (Math.abs(Math.sin(ang)) * Lw + Math.abs(Math.cos(ang)) * Lh) + 1;
+                                int lw = (int) (Math.abs(Math.cos(ang)) * Lw + Math.abs(Math.sin(ang)) * Lh) + 1;
+                                int decalw = (lw - Lw) / 2;
+                                int decalh = (lh - Lh) / 2;
+                                image.scrollTo(decalw - imageposx, decalh - imageposy);
                                 long t0 = System.currentTimeMillis();
                                 image.setImageBitmap(rotation(btmpactu, valeurseek));
                                 long t1 = System.currentTimeMillis();
@@ -2225,9 +2233,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             }
         }
         rota.setPixels(pixels2, 0, lw, 0, 0, lw, lh);
-        int decalw = (lw - Lw) / 2;
-        int decalh = (lh - Lh) / 2;
-        image.scrollTo(decalw - imageposx, decalh - imageposy);
         return rota;
     }
 
@@ -2617,7 +2622,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             int green = (tmp >> 8) & 0xFF;//same for the green component
             int red = (tmp >> 16) & 0xFF;//same for the red component
 //la on chope un entier < size en faisant n'importe quoi; on est obligé de faire un truc pour travailler sur un pixel éloigné au hasard, sinon y'a
-// (dans de rare cas) des effets locaux étrange si l'image comporte de large zone exactement de la meme couleur
+// (dans de rare cas) des effets locaux étrange si l'image comporte de large zone à 000
             // la du coup c'est mieux, mais y'a encore des trucs bizarre
             int pixpseudoaleatoire = seed * (blue + green - red) + seed2 + seed3;
             if (pixpseudoaleatoire < 0) {
