@@ -1787,7 +1787,7 @@ public Imagetraitement rotation(double angle) {
                             } else {
                                 long t0 = System.currentTimeMillis();
                                 //image.setImageBitmap(vieeux(btmpactu, valeurseek));
-                                Imagetraitement im2 = btmpactu.intelligentpastelisationtable2(valeurseek);
+                                Imagetraitement im2 = btmpactu.pixelisation(valeurseek).intelligentpastelisationtable2(10);
                                 image.setImageBitmap(im2.afficheuse(btmpactu.width, btmpactu.height, 0));
                                 long t1 = System.currentTimeMillis();
                                 long t2 = t1 - t0;
@@ -2294,6 +2294,12 @@ public Imagetraitement rotation(double angle) {
 
 
     // à partir de la, c'est la zone de test. Le brouillon
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     int[] getbitcouleurs(Bitmap b) {
@@ -3543,7 +3549,7 @@ public Bitmap contourdeladernierechance(Bitmap b , double seuil){
             i=1;
             j+=2;
         }
-        int colordroite=bit[j+1];// me vient une idée de ouf ( prendre pour gradienty le max de haut bas, x gauche droite, à tenter plus tard
+        int colordroite=bit[j+1];// me vient une idée de ouf ( prendre pour gradienty le max de haut bas, x gauche droite, à tenter plus tard ( peut etre faut les sommer)
         int coloractu=bit[j];
         int colorhaut=bit[j-width];
 
@@ -3562,7 +3568,7 @@ public Bitmap contourdeladernierechance(Bitmap b , double seuil){
         double varx=sqrt((bactu-bdroite)*(bactu-bdroite)+ (gactu-gdroite)*(gactu-gdroite) +(ractu-rdroite)*(ractu-rdroite));//ici plus tard: varx = max haut bas.
         double vary=sqrt((bactu-bhaut)*(bactu-bhaut)+ (gactu-ghaut)*(gactu-ghaut) +(ractu-rhaut)*(ractu-rhaut));
 
-        //on norme(pour faire des différences d'angle), je ne sais pas si il est nécéssaire ici de normer par une euclidienne. à voir plus tard ( peut etre faut les sommer)
+        //on norme(pour faire des différences d'angle), je ne sais pas si il est nécéssaire ici de normer par une euclidienne. à voir plus tard
         double norme= sqrt(varx*varx+vary*vary);
         //double norme=varx+vary;
         varx/=norme;

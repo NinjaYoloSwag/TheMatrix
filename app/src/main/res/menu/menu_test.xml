@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/redimensionner"
-        android:title="redimensionner"
+        android:title="zoom"
         app:showAsAction="never" />
     <item
         android:id="@+id/contrasterteinte"
