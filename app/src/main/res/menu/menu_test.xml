@@ -17,6 +17,9 @@
         android:title="redimensionner"
         app:showAsAction="never" />
     <item
+        android:id="@+id/contrasterteinte"
+        android:title="contrasterteinte" />
+    <item
         android:id="@+id/fusion"
         android:title="fusion"
         app:showAsAction="never" />
@@ -29,17 +32,24 @@
         android:id="@+id/contraster"
         android:title="contraster"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/contrasterteinte"
-        android:title="contrasterteinte"
+        android:id="@+id/pixelisation"
+        android:title="pixelisation"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/pixelart"
+        android:title="pixelart"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/contour"
         android:title="contour"
         app:showAsAction="never" />
     <item
         android:id="@+id/contour2"
-        android:title="contour2"
+        android:title="filtre incroyable"
         app:showAsAction="never" />
     <item
         android:id="@+id/pastel"
