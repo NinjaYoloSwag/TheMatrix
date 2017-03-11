@@ -1252,51 +1252,53 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         int sommeg;
         int sommeb;
         int color;
-        int i=width;
+        int i;
         int j=0;
         int colorajeter=0;
         while (j <size){
-            if (i>=width){
-                i=0;
-                for (int iterateur=0; iterateur< j+intensite; iterateur++ ){
-                    color=tab[iterateur];
-                    tableaudessommesr[j]+= (color >> 16) & 0xFF;
-                    tableaudessommesg[j]+= (color >> 8) & 0xFF;
-                    tableaudessommesb[j]+= color & 0xFF;
-                }
-                j++;
-                i++;
-                //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers la droite mais on garde le pixel de gauche
-                while (i<=intensite){
-                    color=tab[j+intensite];
-                    tableaudessommesr[j]= tableaudessommesr[j-1]+(color >> 16) & 0xFF;
-                    tableaudessommesg[j]= tableaudessommesg[j-1] + (color >> 8) & 0xFF;
-                    tableaudessommesb[j]= tableaudessommesb[j-1]+ color & 0xFF;
-                    i++;
-                    j++;
-                }
+            i=0;
+            for (int iterateur=j; iterateur< j+intensite+1; iterateur++ ){
+                color=tab[iterateur];
+                tableaudessommesr[j]+= (color >> 16) & 0xFF;
+                tableaudessommesg[j]+= (color >> 8) & 0xFF;
+                tableaudessommesb[j]+= color & 0xFF;
             }
+            j++;
+            i++;
+            //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers la droite mais on garde le pixel de gauche
+            while (i<=intensite){
+                color=tab[j+intensite];
+                tableaudessommesr[j]= tableaudessommesr[j-1]+((color >> 16) & 0xFF);
+                tableaudessommesg[j]= tableaudessommesg[j-1] + ((color >> 8) & 0xFF);
+                tableaudessommesb[j]= tableaudessommesb[j-1]+ (color & 0xFF);
+                i++;
+                j++;
+            }
+
+
+
             //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
 
-            while (i<width-intensite){
-                color=tab[j+intensite];
+            while (i<=width-intensite){
+                color=tab[j+intensite-1];
                 colorajeter=tab[j-intensite-1];
 
-                tableaudessommesr[j]=tableaudessommesr[j-1]+ (color >> 16) & 0xFF -(colorajeter >> 16) & 0xFF;
-                tableaudessommesg[j]=tableaudessommesg[j-1]+(color >> 8) & 0xFF - (colorajeter >> 8) & 0xFF;
-                tableaudessommesb[j]=tableaudessommesb[j-1]+ color & 0xFF - colorajeter & 0xFF;
+                tableaudessommesr[j]=tableaudessommesr[j-1]+ ((color >> 16) & 0xFF) -((colorajeter >> 16) & 0xFF);
+                tableaudessommesg[j]=tableaudessommesg[j-1]+((color >> 8) & 0xFF) - ((colorajeter >> 8) & 0xFF);
+                tableaudessommesb[j]=tableaudessommesb[j-1]+ (color & 0xFF) - (colorajeter & 0xFF);
                 i++;
                 j++;
                 //Log.i(" i=", " "+ i);
             }
 
+
             //la faut aller jsk à la fin mais sans ajouter les cases d'aprés
 
             while (i<width){//-1?
                 colorajeter=tab[j-intensite-1];
-                tableaudessommesr[j]=tableaudessommesr[j-1] - (colorajeter >> 16) & 0xFF;
-                tableaudessommesg[j]=tableaudessommesg[j-1] - (colorajeter >> 8) & 0xFF;
-                tableaudessommesb[j]=tableaudessommesb[j-1] - colorajeter & 0xFF;
+                tableaudessommesr[j]=tableaudessommesr[j-1] - ((colorajeter >> 16) & 0xFF);
+                tableaudessommesg[j]=tableaudessommesg[j-1] - ((colorajeter >> 8) & 0xFF);
+                tableaudessommesb[j]=tableaudessommesb[j-1] - (colorajeter & 0xFF);
                 i++;
                 j++;
             }//bon la j me rend compte qu'y a moyen d'économiser bcp de mémoire si on se passe d'une liste exhaustive de toute les somme pour ensuite faire une post
@@ -1305,73 +1307,67 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         }
         //les lignes sont faite, mtn fait la meme chose sur les colonnes.
 
-        for (int t=0; t<2*width; t++){
-            Log.i("et", " "+ tableaudessommesr[t]);
+        for (int t=size-width; t<size; t++){
+            Log.i(" "+t, " "+ tableaudessommesr[t]);
         }
 
-        i=size;
-        j=-1;
+        j=0;
         while (j<size){
+            i=0;
+            for (int iterateur=j; iterateur< j+width*intensite; iterateur+=width ){
+                resr[j]+= tableaudessommesr[iterateur];
+                resg[j]+= tableaudessommesg[iterateur];
+                resb[j]+= tableaudessommesb[iterateur];
+            }
+            j+=width;
+            i+=width;
+            //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers le bas mais on garde le pixel d'en haut.
+            while (i<=intensite*width){
+                int red=tableaudessommesr[j+ intensite*width];
+                int green=tableaudessommesg[j+ intensite*width];
+                int blu=tableaudessommesb[j+ intensite*width];
 
-            if (i>=size-1-width){
-                i=0;
-                j++;
-                for (int iterateur=0; iterateur< j+width*intensite; iterateur+=width ){
-                    color=tab[iterateur];
-                    resr[j]+= (color >> 16) & 0xFF;
-                    resg[j]+= (color >> 8) & 0xFF;
-                    resb[j]+= color & 0xFF;
+                resr[j]= resr[j-width]+red;
+                resg[j]= resg[j-width] + green;
+                resb[j]= resb[j-width] + blu;
 
-                }
-                j+=width;
                 i+=width;
-                //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers le bas mais on garde le pixel d'en haut.
-                while (i<intensite*width){
-                    int red=tableaudessommesr[j+ intensite*width];
-                    int green=tableaudessommesg[j+ intensite*width];
-                    int blu=tableaudessommesb[j+ intensite*width];
+                j+=width;
 
-                    resr[j]= resr[j-width]+red;
-                    resg[j]= resg[j-width] + green;
-                    resb[j]= resb[j-width] + blu;
+            }
 
-                    i+=width;
-                    j+=width;
+            //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
+            while (i<size-intensite*width){
+                int red=tableaudessommesr[j+ intensite*width];
+                int green=tableaudessommesg[j+ intensite*width];
+                int blu=tableaudessommesb[j+ intensite*width];
 
-                }
+                int redajeter=tableaudessommesr[j - intensite*(width+1)];
+                int greenajeter=tableaudessommesg[j - intensite*(width+1)];
+                int bluajeter=tableaudessommesb[j - intensite*(width+1)];
 
-                //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
-                while (i<size-intensite*width){
-                    int red=tableaudessommesr[j+ intensite*width];
-                    int green=tableaudessommesg[j+ intensite*width];
-                    int blu=tableaudessommesb[j+ intensite*width];
-
-                    int redajeter=tableaudessommesr[j - intensite*(width+1)];
-                    int greenajeter=tableaudessommesg[j - intensite*(width+1)];
-                    int bluajeter=tableaudessommesb[j - intensite*(width+1)];
-
-                    resr[j]=resr[j-width] + red -redajeter;
-                    resg[j]=resg[j-width] + green -greenajeter;
-                    resb[j]=resb[j-width] + blu -bluajeter;
-                    i+=width;
-                    j+=width;
-                }
+                resr[j]=resr[j-width] + red -redajeter;
+                resg[j]=resg[j-width] + green -greenajeter;
+                resb[j]=resb[j-width] + blu -bluajeter;
+                i+=width;
+                j+=width;
+            }
 
 
                 //la faut aller jsk à la fin mais sans ajouter les cases d'en bas
 
-                while (i<width-1){//-1?
-                    int redajeter=tableaudessommesr[j - intensite*(width+1)];
-                    int greenajeter=tableaudessommesg[j - intensite*(width+1)];
-                    int bluajeter=tableaudessommesb[j - intensite*(width+1)];
+            while (i<width-1){//-1?
+                int redajeter=tableaudessommesr[j - intensite*(width+1)];
+                int greenajeter=tableaudessommesg[j - intensite*(width+1)];
+                int bluajeter=tableaudessommesb[j - intensite*(width+1)];
 
-                    resr[j]=resr[j-width] - redajeter;
-                    resg[j]=resg[j-width] - greenajeter;
-                    resb[j]=resb[j-width] - bluajeter;
-                    i+=width;
-                    j+=width;
-                }
+                resr[j]=resr[j-width] - redajeter;
+                resg[j]=resg[j-width] - greenajeter;
+                resb[j]=resb[j-width] - bluajeter;
+                i+=width;
+                j+=width;
             }
+
 
         }
 
