@@ -701,14 +701,29 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean fromuser) {
                         if (fromuser) {
-                            int valeurseek = (int) (((double) i / seekBar.getMax() * 50) + 0.5);
-                            long t0 = System.currentTimeMillis();
-                            Imagetraitement im=btmpactu.flou(valeurseek);
-                            image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0,resolution));
-                            image.setImageBitmap(fourapide(((BitmapDrawable) image.getDrawable()).getBitmap(), valeurseek));
-                            long t1 = System.currentTimeMillis();
-                            long t2 = t1 - t0;
-                            txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + t2 + " " + imageheight + " " + imagewidth + " " + valeurseek);
+                            int min;
+                            if (btmpactu.width > btmpactu.height) {
+                                min = (btmpactu.height >> 1);
+                            } else {
+                                min = (btmpactu.width >> 1);
+                            }
+
+                            int valeurseek = (int) (((double) i / seekBar.getMax() * 60) + 0.5);
+                            if (valeurseek < min && valeurseek!=0) {
+                                Log.i("valseek", " " + valeurseek);
+                                long t0 = System.currentTimeMillis();
+                                Imagetraitement im = btmpactu.flou(valeurseek);
+                                image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0, resolution));
+                                image.setImageBitmap(fourapide(((BitmapDrawable) image.getDrawable()).getBitmap(), valeurseek));
+                                long t1 = System.currentTimeMillis();
+                                long t2 = t1 - t0;
+                                txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + t2 + " " + imageheight + " " + imagewidth + " " + valeurseek);
+                            }
+                            else{
+                                if (valeurseek!=0) {
+                                    txt.setText("Houla, t'emballe pas");
+                                }
+                            }
                         }
                     }
 
