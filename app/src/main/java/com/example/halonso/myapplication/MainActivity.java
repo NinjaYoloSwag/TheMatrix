@@ -1245,12 +1245,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         int[]tableaudessommesg=new int[size];
 
         b.getPixels(tab, 0, width, 0, 0, width, height);//Gets the array of the bitmap's pixels
-        Log.i(" intensite=", " " +intensite);
-        int haut = 0;
-        int bas = intensite;
-        int sommer;
-        int sommeg;
-        int sommeb;
         int color;
         int i;
         int j=0;
@@ -1307,14 +1301,15 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         }
         //les lignes sont faite, mtn fait la meme chose sur les colonnes.
 
-        for (int t=size-width; t<size; t++){
-            Log.i(" "+t, " "+ tableaudessommesr[t]);
-        }
 
+        /*for (int t=0; t<size; t++){
+            tableaudessommesg[t]=1;
+        }*/
+//COLLONES
         j=0;
         while (j<size){
             i=0;
-            for (int iterateur=j; iterateur< j+width*intensite; iterateur+=width ){
+            for (int iterateur=j; iterateur< j+width*intensite+1; iterateur+=width ){
                 resr[j]+= tableaudessommesr[iterateur];
                 resg[j]+= tableaudessommesg[iterateur];
                 resb[j]+= tableaudessommesb[iterateur];
@@ -1322,10 +1317,11 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             j+=width;
             i+=width;
             //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers le bas mais on garde le pixel d'en haut.
-            while (i<=intensite*width){
-                int red=tableaudessommesr[j+ intensite*width];
-                int green=tableaudessommesg[j+ intensite*width];
-                int blu=tableaudessommesb[j+ intensite*width];
+            while (i<intensite*width){
+                int cibleur=j+intensite*width;
+                int red=tableaudessommesr[cibleur];
+                int green=tableaudessommesg[cibleur];
+                int blu=tableaudessommesb[cibleur];
 
                 resr[j]= resr[j-width]+red;
                 resg[j]= resg[j-width] + green;
@@ -1333,33 +1329,38 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
                 i+=width;
                 j+=width;
-
             }
 
-            //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
-            while (i<size-intensite*width){
-                int red=tableaudessommesr[j+ intensite*width];
-                int green=tableaudessommesg[j+ intensite*width];
-                int blu=tableaudessommesb[j+ intensite*width];
 
-                int redajeter=tableaudessommesr[j - intensite*(width+1)];
-                int greenajeter=tableaudessommesg[j - intensite*(width+1)];
-                int bluajeter=tableaudessommesb[j - intensite*(width+1)];
+            //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
+            while (i<size-intensite*(width+1)){
+                int cibleur1=j+intensite*width;
+                int cibleur2=j - intensite*width;
+                int red=tableaudessommesr[cibleur1];
+                int green=tableaudessommesg[cibleur1];
+                int blu=tableaudessommesb[cibleur1];
+
+                int redajeter=tableaudessommesr[cibleur2];
+                int greenajeter=tableaudessommesg[cibleur2];
+                int bluajeter=tableaudessommesb[cibleur2];
 
                 resr[j]=resr[j-width] + red -redajeter;
                 resg[j]=resg[j-width] + green -greenajeter;
                 resb[j]=resb[j-width] + blu -bluajeter;
+
                 i+=width;
                 j+=width;
             }
 
-
                 //la faut aller jsk à la fin mais sans ajouter les cases d'en bas
 
-            while (i<width-1){//-1?
-                int redajeter=tableaudessommesr[j - intensite*(width+1)];
-                int greenajeter=tableaudessommesg[j - intensite*(width+1)];
-                int bluajeter=tableaudessommesb[j - intensite*(width+1)];
+            while (i<=size-width){//-1?
+                int cibleur=j - intensite*(width+1);
+
+                int redajeter=tableaudessommesr[cibleur];
+                int greenajeter=tableaudessommesg[cibleur];
+                int bluajeter=tableaudessommesb[cibleur];
+
 
                 resr[j]=resr[j-width] - redajeter;
                 resg[j]=resg[j-width] - greenajeter;
@@ -1367,6 +1368,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 i+=width;
                 j+=width;
             }
+            /*for (int t=0; t<size; t+=width){
+                Log.i(" "+ t, " "+ resg[t]);
+            }*/
 
 
         }
