@@ -1361,13 +1361,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         }
 
 
-
-
-
-
-        for (int t=0; t<size; t++){
-            tableaudessommesb[t]=1;
-        }
 //COLLONES
         j=0;
         int cpt=0;
