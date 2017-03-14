@@ -724,7 +724,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                                 min = (btmpactu.width >> 1);
                             }
 
-                            int valeurseek = (int) (((double) i / seekBar.getMax() * 60) + 0.5);
+                            int valeurseek = (int) (((double) i / seekBar.getMax() * min) + 0.5);
                             if (valeurseek < min && valeurseek!=0) {
                                 //Log.i("valseek", " " + valeurseek);
                                 long t0 = System.currentTimeMillis();
@@ -1358,7 +1358,13 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             /*long t4 = System.currentTimeMillis();
             Log.i(" ligne étape 3", " "+ (t4-t3));*/
 
+
         }
+        for (int t=0; t<size; t++) {
+            //Log.i(" " + t, " " + tableaudessommesb[t]);
+            //tableaudessommesb[t]=1;
+        }
+
 
 
 //COLLONES
@@ -1394,7 +1400,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
             while (i<size-intensite*(width+1)){
                 int cibleur1=j+intensite*width;
-                int cibleur2=j - intensite*width;
+                int cibleur2=j - (intensite+1)*width;
                 int red=tableaudessommesr[cibleur1];
                 int green=tableaudessommesg[cibleur1];
                 int blu=tableaudessommesb[cibleur1];
@@ -1414,7 +1420,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 //la faut aller jsk à la fin mais sans ajouter les cases d'en bas
 
             while (i<=size-width){//-1?
-                int cibleur=j - intensite*(width+1);
+                int cibleur=j - (intensite+1)*width;
 
                 int redajeter=tableaudessommesr[cibleur];
                 int greenajeter=tableaudessommesg[cibleur];
@@ -1433,6 +1439,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         }
         for (int t=0; t<size; t+=width) {
             //Log.i(" " + t/width, " " + resb[t]);
+        }
+        for (int t=1; t<size; t+=width) {
+           // Log.i(" " + t/width, " " + resb[t]);
         }
 
 
