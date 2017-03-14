@@ -46,14 +46,7 @@
         android:adjustViewBounds="false"
         android:scaleType="matrix" />
 
-    <Button
-        android:id="@+id/inside"
-        android:text="adjust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
     <HorizontalScrollView
         android:id="@+id/scroll"

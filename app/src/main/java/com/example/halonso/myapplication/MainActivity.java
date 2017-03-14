@@ -149,6 +149,12 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
         }
 
+        public void affect(Imagetraitement im){
+            width=im.width;
+            height=im.height;
+            tableauimage=im.tableauimage;
+        }
+
         public Pos getpixel(int x, int y){//à Fiiiiiiiiinir( pour gérer la rotation, le zoom...
             return new Pos(x,y);
         }
@@ -348,37 +354,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         final Button addcolor = (Button) findViewById(R.id.addcolor);
 
 
-        final Button adjustdimension = (Button) findViewById(R.id.inside);
-        adjustdimension.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap());
-
-                int wview = imagewidth;
-                int hview = imageheight;
-                double ratiow = (double) wview / btmpactu.width;
-                double ratioh = (double) hview / btmpactu.height;
-                int newwidth=wview;
-                int newheight=hview;
-                if (ratiow < ratioh) {
-                    newheight=(int) (ratiow * btmpactu.height + 0.5);
-
-                } else {
-                   newwidth=(int) (ratioh * btmpactu.width + 0.5);
-                }
-                btmpactu.xapreszoom=newwidth;
-                btmpactu.yapreszoom=newheight;
-                Imagetraitement im=btmpactu.redimensionner(newwidth,newheight);
-                image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0,resolution));
-                image.scrollTo(0, 0);
-                btmpactu.posx = 0;
-                btmpactu.posy = 0;
-                txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + imageheight + " " + imagewidth);
-
-            }
-        });
-
         final Button next = (Button) findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
 
@@ -457,6 +432,15 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
                 return true;
 
+            case R.id.undo:
+                if (btmpactu.liste.size()>=2) {
+                    btmpactu.liste.removeLast();
+                    btmpactu.affect(btmpactu.liste.peekLast());
+                    image.setImageBitmap(btmpactu.afficheuse());
+                }
+
+                return true;
+
             case R.id.action_delete:
                 addcolor.setVisibility(View.INVISIBLE);
                 selecteur.remove(selecteur.cptactu);
@@ -464,6 +448,34 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 btmpactu= new Actu(selecteur.getimagetraiement());// y a pas moy de pas faire de new?
                 image.setImageBitmap(btmpactu.afficheuse());
                 return true;
+
+            case R.id.adjust:
+                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap());
+
+                int wview = imagewidth;
+                int hview = imageheight;
+                double ratiow = (double) wview / btmpactu.width;
+                double ratioh = (double) hview / btmpactu.height;
+                int newwidth=wview;
+                int newheight=hview;
+                if (ratiow < ratioh) {
+                    newheight=(int) (ratiow * btmpactu.height + 0.5);
+
+                } else {
+                    newwidth=(int) (ratioh * btmpactu.width + 0.5);
+                }
+                btmpactu.xapreszoom=newwidth;
+                btmpactu.yapreszoom=newheight;
+                Imagetraitement im19=btmpactu.redimensionner(newwidth,newheight);
+                image.setImageBitmap(im19.afficheuse(btmpactu.width, btmpactu.height, 0,resolution));
+                image.scrollTo(0, 0);
+                btmpactu.posx = 0;
+                btmpactu.posy = 0;
+                txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + imageheight + " " + imagewidth);
+
+                return true;
+
+
 
             case R.id.redimensionner://mettre à jour postioion dans imview
                 btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
@@ -509,7 +521,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.pixelisation:
                 addcolor.setVisibility(View.INVISIBLE);
                Bitmap btm= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm));
+                btmpactu.liste.addLast(new Imagetraitement(btm));
                 btmpactu.affect(btm);
                 seekbar1.setProgress(1);
                 seekbar1.setVisibility(View.VISIBLE);
@@ -537,7 +549,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.griser://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
                 Bitmap btm2= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement());
+                btmpactu.liste.addLast(new Imagetraitement());
                 btmpactu.affect(btm2); // srx ce new me soul
                 long t0 = System.currentTimeMillis();
                 //image.setImageBitmap(toGray2(btmpactu));
@@ -552,7 +564,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.grisersaufteinte://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
                 Bitmap btm3= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm3));
+                btmpactu.liste.addLast(new Imagetraitement(btm3));
                 btmpactu.affect(btm3); // srx ce new me soul
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
@@ -587,7 +599,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.fusion:
                 addcolor.setVisibility(View.INVISIBLE);
                 Bitmap btm4= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm4));
+                btmpactu.liste.addLast(new Imagetraitement(btm4));
                 btmpactu.affect(btm4);
                 t0 = System.currentTimeMillis();
                 //Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 300, 0);
@@ -603,7 +615,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.vieux://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
                 Bitmap btm5= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm5));
+                btmpactu.liste.addLast(new Imagetraitement(btm5));
                 btmpactu.affect(btm5); // srx ce new me soul
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
@@ -636,7 +648,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.pixelart://200,150,70,0.17)
                 Bitmap btm6= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm6));
+                btmpactu.liste.addLast(new Imagetraitement(btm6));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm6); // srx ce new me soul
                 seekbar1.setProgress(1);
@@ -674,7 +686,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.lum://200,150,70,0.17)
                 Bitmap btm7= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm7));
+                btmpactu.liste.addLast(new Imagetraitement(btm7));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm7); // srx ce new me soul
                 seekbar1.setProgress(seekbar1.getMax() / 10);
@@ -708,7 +720,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.flou://200,150,70,0.17)
                 final Bitmap btm8= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm8));
+                btmpactu.liste.addLast(new Imagetraitement(btm8));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm8); // srx ce new me soul
                 seekbar1.setProgress(0);
@@ -757,7 +769,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.teinterapide:
                 Bitmap btm9= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm9));
+                btmpactu.liste.addLast(new Imagetraitement(btm9));
                 addcolor.setVisibility(View.INVISIBLE);
                 t0 = System.currentTimeMillis();// ici c'est trop bizarre, mes ti et im bug si je les apelle t0 t1 t2 et im
                 //image.setImageBitmap(teintrapide(0, 255, 120, ((BitmapDrawable) image.getDrawable()).getBitmap()));
@@ -770,7 +782,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.contraster:
                 Bitmap btm10= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm10));
+                btmpactu.liste.addLast(new Imagetraitement(btm10));
                 addcolor.setVisibility(View.INVISIBLE);
 
                 btmpactu.affect(btm10); // srx ce new me soul
@@ -818,7 +830,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.contrasterteinte:
                 Bitmap btm11= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm11));
+                btmpactu.liste.addLast(new Imagetraitement(btm11));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm11); // srx ce new me soul
                 seekbar1.setProgress(seekbar1.getMax() / 2);
@@ -864,7 +876,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.contour:
                 Bitmap btm12= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm12));
+                btmpactu.liste.addLast(new Imagetraitement(btm12));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
                 //image.setImageBitmap(derive(btmpactu, 0));
@@ -898,7 +910,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.pastel:
                 Bitmap btm13= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm13));
+                btmpactu.liste.addLast(new Imagetraitement(btm13));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm13); // srx ce new me soul
                 seekbar1.setProgress(1);
@@ -931,7 +943,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.grain:
                 Bitmap btm14= ((BitmapDrawable) image.getDrawable()).getBitmap();
-                btmpactu.liste.add(new Imagetraitement(btm14));
+                btmpactu.liste.addLast(new Imagetraitement(btm14));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(btm14);
                 seekbar1.setProgress(0);
