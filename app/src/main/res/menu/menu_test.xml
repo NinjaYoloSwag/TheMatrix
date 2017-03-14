@@ -6,16 +6,19 @@
         android:icon="@android:drawable/ic_menu_save"
         android:title="save"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_delete"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="supprimer"
         app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/redimensionner"
         android:title="zoom"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/contour"
+        android:title="contour" />
     <item
         android:id="@+id/contrasterteinte"
         android:title="contrasterteinte" />
@@ -24,10 +27,16 @@
         android:title="fusion"
         app:showAsAction="never" />
     <item
+        android:id="@+id/contour2"
+        android:title="filtre incroyable" />
+    <item
         android:id="@+id/griser"
         android:title="griser"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/pixelart"
+        android:title="pixelart" />
     <item
         android:id="@+id/contraster"
         android:title="contraster"
@@ -38,19 +47,6 @@
         android:title="pixelisation"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/pixelart"
-        android:title="pixelart"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/contour"
-        android:title="contour"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/contour2"
-        android:title="filtre incroyable"
-        app:showAsAction="never" />
     <item
         android:id="@+id/pastel"
         android:title="pastel"

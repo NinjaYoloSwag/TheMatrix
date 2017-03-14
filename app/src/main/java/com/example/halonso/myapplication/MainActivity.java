@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         Bitmap blanc = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         int[] tabbitmap = new int[200 * 200];
         for (int i = 0; i < 200 * 200; i++) {
-            tabbitmap[i] = 0xFFFF00FF;
+            tabbitmap[i] = 0xFFFF0001;
 
         }
         blanc.setPixels(tabbitmap, 0, 200, 0, 0, 200, 200);
@@ -508,7 +508,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.pixelisation:
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu = new Actu(((BitmapDrawable) image.getDrawable()).getBitmap());
+               Bitmap btm= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm));
+                btmpactu.affect(btm);
                 seekbar1.setProgress(1);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -534,7 +536,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
             case R.id.griser://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                Bitmap btm2= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement());
+                btmpactu.affect(btm2); // srx ce new me soul
                 long t0 = System.currentTimeMillis();
                 //image.setImageBitmap(toGray2(btmpactu));
                 Imagetraitement im=btmpactu.toGray2();
@@ -547,7 +551,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.grisersaufteinte://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                Bitmap btm3= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm3));
+                btmpactu.affect(btm3); // srx ce new me soul
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -580,7 +586,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.fusion:
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap());
+                Bitmap btm4= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm4));
+                btmpactu.affect(btm4);
                 t0 = System.currentTimeMillis();
                 //Bitmap fufu = fusionneri1dansi2(((BitmapDrawable) image.getDrawable()).getBitmap(), ((BitmapDrawable) image.getDrawable()).getBitmap(), 300, 0);
                 Imagetraitement im2=btmpactu.fusionneri1dansi2(btmpactu,300,0);
@@ -594,7 +602,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
             case R.id.vieux://200,150,70,0.17)
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                Bitmap btm5= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm5));
+                btmpactu.affect(btm5); // srx ce new me soul
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -625,8 +635,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.pixelart://200,150,70,0.17)
+                Bitmap btm6= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm6));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm6); // srx ce new me soul
                 seekbar1.setProgress(1);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -661,8 +673,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.lum://200,150,70,0.17)
+                Bitmap btm7= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm7));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm7); // srx ce new me soul
                 seekbar1.setProgress(seekbar1.getMax() / 10);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -693,8 +707,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.flou://200,150,70,0.17)
+                final Bitmap btm8= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm8));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm8); // srx ce new me soul
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -710,11 +726,11 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
                             int valeurseek = (int) (((double) i / seekBar.getMax() * 60) + 0.5);
                             if (valeurseek < min && valeurseek!=0) {
-                                Log.i("valseek", " " + valeurseek);
+                                //Log.i("valseek", " " + valeurseek);
                                 long t0 = System.currentTimeMillis();
-                                Imagetraitement im = btmpactu.flou(valeurseek);
-                                image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0, resolution));
-                                image.setImageBitmap(fourapide(((BitmapDrawable) image.getDrawable()).getBitmap(), valeurseek));
+                                //Imagetraitement im = btmpactu.fou(valeurseek);
+                                //image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0, resolution));
+                                image.setImageBitmap(fourapide(btm8,valeurseek));
                                 long t1 = System.currentTimeMillis();
                                 long t2 = t1 - t0;
                                 txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + t2 + " " + imageheight + " " + imagewidth + " " + valeurseek);
@@ -740,6 +756,8 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.teinterapide:
+                Bitmap btm9= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm9));
                 addcolor.setVisibility(View.INVISIBLE);
                 t0 = System.currentTimeMillis();// ici c'est trop bizarre, mes ti et im bug si je les apelle t0 t1 t2 et im
                 //image.setImageBitmap(teintrapide(0, 255, 120, ((BitmapDrawable) image.getDrawable()).getBitmap()));
@@ -751,9 +769,11 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.contraster:
+                Bitmap btm10= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm10));
                 addcolor.setVisibility(View.INVISIBLE);
 
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm10); // srx ce new me soul
                 seekbar1.setProgress(seekbar1.getMax() / 2);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -797,8 +817,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
             case R.id.contrasterteinte:
+                Bitmap btm11= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm11));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm11); // srx ce new me soul
                 seekbar1.setProgress(seekbar1.getMax() / 2);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -841,6 +863,8 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.contour:
+                Bitmap btm12= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm12));
                 addcolor.setVisibility(View.INVISIBLE);
                 btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
                 //image.setImageBitmap(derive(btmpactu, 0));
@@ -873,8 +897,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.pastel:
+                Bitmap btm13= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm13));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap()); // srx ce new me soul
+                btmpactu.affect(btm13); // srx ce new me soul
                 seekbar1.setProgress(1);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -904,8 +930,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.grain:
+                Bitmap btm14= ((BitmapDrawable) image.getDrawable()).getBitmap();
+                btmpactu.liste.add(new Imagetraitement(btm14));
                 addcolor.setVisibility(View.INVISIBLE);
-                btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap());
+                btmpactu.affect(btm14);
                 seekbar1.setProgress(0);
                 seekbar1.setVisibility(View.VISIBLE);
                 seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -979,7 +1007,6 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             case R.id.pastelintelligent:// c'est bcp plus lg depuis que j'ai mis imagetraitement ailleur demander à prof
 
                 addcolor.setVisibility(View.VISIBLE);
-
                 //couleurs = new HashSet<>();
                 btmpactu.affect(((BitmapDrawable) image.getDrawable()).getBitmap());
                 //final int[] bitmap = getbitcouleurs(btmpactu);// faut t il passer le tableau, ou faire à chaque fois btm.tab[]//
@@ -1263,7 +1290,13 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         int color;
         int i;
         int j=0;
-        int colorajeter=0;
+        int colorajeter;
+        //Log.i(" intensite", " "+ intensite);
+        /*for (i=0; i<size; i++){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x01;
+        }*/
+
+
         while (j <size){
             i=0;
             for (int iterateur=j; iterateur< j+intensite+1; iterateur++ ){
@@ -1271,24 +1304,29 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 tableaudessommesr[j]+= (color >> 16) & 0xFF;
                 tableaudessommesg[j]+= (color >> 8) & 0xFF;
                 tableaudessommesb[j]+= color & 0xFF;
+                //System.out.println(color & 0xFF);
             }
             j++;
             i++;
+
             //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers la droite mais on garde le pixel de gauche
             while (i<=intensite){
                 color=tab[j+intensite];
                 tableaudessommesr[j]= tableaudessommesr[j-1]+((color >> 16) & 0xFF);
                 tableaudessommesg[j]= tableaudessommesg[j-1] + ((color >> 8) & 0xFF);
                 tableaudessommesb[j]= tableaudessommesb[j-1]+ (color & 0xFF);
+
                 i++;
                 j++;
             }
 
 
 
+
+
             //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
 
-            while (i<=width-intensite){
+            while (i<width-intensite){
                 color=tab[j+intensite-1];
                 colorajeter=tab[j-intensite-1];
 
@@ -1300,6 +1338,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 //Log.i(" i=", " "+ i);
             }
 
+            /*long t3 = System.currentTimeMillis();
+            Log.i(" ligne étape 2", " "+ (t3-t2));*/
+
 
             //la faut aller jsk à la fin mais sans ajouter les cases d'aprés
 
@@ -1310,20 +1351,29 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 tableaudessommesb[j]=tableaudessommesb[j-1] - (colorajeter & 0xFF);
                 i++;
                 j++;
+
             }//bon la j me rend compte qu'y a moyen d'économiser bcp de mémoire si on se passe d'une liste exhaustive de toute les somme pour ensuite faire une post
             // traitement. ça demande d'alterner les phase de récup d'info et de remplissage du tableau final et c 'est trés chaud.
             // une fois qu'on a remplit intensité lignes. On peut commencer à remplire notre tableau final et ainsi décharger la mémoire. à voir.
+            /*long t4 = System.currentTimeMillis();
+            Log.i(" ligne étape 3", " "+ (t4-t3));*/
+
         }
-        //les lignes sont faite, mtn fait la meme chose sur les colonnes.
 
 
-        /*for (int t=0; t<size; t++){
-            tableaudessommesg[t]=1;
-        }*/
+
+
+
+
+        for (int t=0; t<size; t++){
+            tableaudessommesb[t]=1;
+        }
 //COLLONES
         j=0;
-        while (j<size){
+        int cpt=0;
+        while (cpt<width){
             i=0;
+            j=cpt;
             for (int iterateur=j; iterateur< j+width*intensite+1; iterateur+=width ){
                 resr[j]+= tableaudessommesr[iterateur];
                 resg[j]+= tableaudessommesg[iterateur];
@@ -1331,8 +1381,9 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             }
             j+=width;
             i+=width;
+
             //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers le bas mais on garde le pixel d'en haut.
-            while (i<intensite*width){
+            while (i<=intensite*width){
                 int cibleur=j+intensite*width;
                 int red=tableaudessommesr[cibleur];
                 int green=tableaudessommesg[cibleur];
@@ -1383,23 +1434,29 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 i+=width;
                 j+=width;
             }
-            /*for (int t=0; t<size; t+=width){
-                Log.i(" "+ t, " "+ resg[t]);
-            }*/
+            //System.out.println(j + " sizeeeeeeeeeeeeeeeeeeeee= "+ size);
+            cpt++;
 
-
+        }
+        for (int t=0; t<size; t+=width) {
+            //Log.i(" " + t/width, " " + resb[t]);
         }
 
 
+
+        double diviseur=1+2*intensite;
+        diviseur*=diviseur;
         for (int jo=0; jo<size;jo++){
             int a=tab[jo]>>>24;
-            double diviseur=1+2*intensite;
-            resr[jo]=a<<24 | (int)((resr[jo]/diviseur)+0.5)<<16 |(int)((resg[jo]/diviseur)+0.5)<<8 | (int)((resb[jo]/diviseur)+0.5);
+            resr[jo]=a<<24 | (int)(((double)resr[jo]/diviseur)+0.5)<<16 |(int)(((double)resg[jo]/diviseur)+0.5)<<8 | (int)(((double)resb[jo]/diviseur)+0.5);
+            //System.out.println((double)resr[jo]/diviseur);
+
         }
         zoom.setPixels(resr, 0, width, 0, 0, width, height);
-        return b;
+        return zoom;
     }
 
 }
+
 
 
