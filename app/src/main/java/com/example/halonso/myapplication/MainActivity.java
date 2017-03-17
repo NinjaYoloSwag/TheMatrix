@@ -103,8 +103,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
     class Actu extends Imagetraitement{
-        double rotation;
-        int posx;//la position de l'image dans l'image view (coin sup gauche)
+        int posx;//la position de l'image actuelle dans l'image view (coin sup gauche)
         int posy;//
 
         int xapreszoom;// si y a eu un zoom, on garde l'info.
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
         LinkedList<Imagetraitement> liste;
 
-        public Actu(Imagetraitement i){//faire le constructeur;(on construit qu'une fois au début tt maniere.
+        public Actu(Imagetraitement i){
             super(i);
             rotation=0;
             posy=0;
@@ -120,6 +119,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             xapreszoom=width;
             yapreszoom=height;
             liste=new LinkedList<>();
+            liste.addLast(i);
 
         }
 
@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             xapreszoom=width;
             yapreszoom=height;
             liste=new LinkedList<>();
+            Imagetraitement im=new Imagetraitement(bitmap);
+            liste.addLast(im);
         }
 
         public Bitmap afficheuse(){//à Fiiiiiiiiinir( pour gérer la rotation, le zoom...
@@ -159,6 +161,46 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             return new Pos(x,y);
         }
 
+    }
+    class Actu2 {// a voir
+        int posx;//la position de l'image dans l'image view (coin sup gauche)
+        int posy;//
+        LinkedList<Imagetraitement> liste;
+
+        public Actu2() {
+            posy = 0;
+            posx = 0;
+            int xapreszoom;// si y a eu un zoom, on garde l'info.
+            int yapreszoom;
+            liste = new LinkedList<>();
+
+
+        }
+
+
+
+        public Bitmap afficheuse() {//à Fiiiiiiiiinir( pour gérer la rotation, le zoom...
+            Imagetraitement i=liste.getLast();
+            Bitmap affiche = Bitmap.createBitmap(i.width, i.height, Bitmap.Config.ARGB_8888);
+            affiche.setDensity(resolution);// à faire : remplacer tout les getdensity par density ecran
+            affiche.setPixels(i.tableauimage, 0, i.width, 0, 0, i.width, i.height);
+            return affiche;
+
+        }
+
+        public void add(Bitmap b) {
+            Imagetraitement i=new Imagetraitement(b);
+            liste.add(i);
+
+        }
+
+        public void add(Imagetraitement im) {
+            liste.add(im);
+        }
+
+        public Pos getpixel(int x, int y) {//à Fiiiiiiiiinir( pour gérer la rotation, le zoom...
+            return new Pos(x, y);
+        }
     }
 
     float[][] tabledesdistance;//j'aimerais bien stocké toute les distances pour aller vraiment plus vite (nottament pour augmenter la vitesse des algos de contour et pastel)
@@ -433,7 +475,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                 return true;
 
             case R.id.undo:
-                if (btmpactu.liste.size()>=2) {
+                if (!btmpactu.liste.isEmpty()) {
                     btmpactu.liste.removeLast();
                     btmpactu.affect(btmpactu.liste.peekLast());
                     image.setImageBitmap(btmpactu.afficheuse());
@@ -738,11 +780,11 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
                             int valeurseek = (int) (((double) i / seekBar.getMax() * min) + 0.5);
                             if (valeurseek < min && valeurseek!=0) {
-                                //Log.i("valseek", " " + valeurseek);
+                                Log.i("valseek", " " + valeurseek);
                                 long t0 = System.currentTimeMillis();
                                 //Imagetraitement im = btmpactu.fou(valeurseek);
                                 //image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0, resolution));
-                                image.setImageBitmap(fourapide(btm8,valeurseek));
+                                image.setImageBitmap(flourapide(btm8,valeurseek));
                                 long t1 = System.currentTimeMillis();
                                 long t2 = t1 - t0;
                                 txt.setText(((BitmapDrawable) image.getDrawable()).getBitmap().getHeight() + "  " + ((BitmapDrawable) image.getDrawable()).getBitmap().getWidth() + " " + t2 + " " + imageheight + " " + imagewidth + " " + valeurseek);
@@ -889,7 +931,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
                             double valeurseek = (double) i / seekBar.getMax();
                             long t0 = System.currentTimeMillis();
                           //  image.setImageBitmap(derive(contrastercolor(btmpactu, 1), valeurseek));
-                            Imagetraitement im=btmpactu.contourderive(valeurseek);
+                            Imagetraitement im=btmpactu.contourderive(valeurseek).contrastercolorengardantteinte(1);
                             image.setImageBitmap(im.afficheuse(btmpactu.width, btmpactu.height, 0,resolution));
                             long t1 = System.currentTimeMillis();
                             long t2 = t1 - t0;
@@ -1283,7 +1325,7 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
 
-    public Bitmap fourapide(Bitmap b, int intensite) {//on va essayer de pas repasser 800 fois sur le meme pixel.
+    public Bitmap flourapide(Bitmap b, int intensite) {//on va essayer de pas repasser 800 fois sur le meme pixel.
         // pour cela, on va stocker les sommes sur les lignes en un temps linéaire en widht. Et aprés on itera sur ce nouveau tableau.
         int width = b.getWidth();
         int height = b.getHeight();
@@ -1304,8 +1346,14 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
         int j=0;
         int colorajeter;
         //Log.i(" intensite", " "+ intensite);
-        /*for (i=0; i<size; i++){
+        /*for (i=0; i<size; i+=3){
             tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x01;
+        }
+        for (i=1; i<size; i+=3){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x02;
+        }
+        for (i=2; i<size; i+=3){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x03;
         }*/
 
 
@@ -1336,10 +1384,13 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
 
+
+
+
             //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
 
             while (i<width-intensite){
-                color=tab[j+intensite-1];
+                color=tab[j+intensite];
                 colorajeter=tab[j-intensite-1];
 
                 tableaudessommesr[j]=tableaudessommesr[j-1]+ ((color >> 16) & 0xFF) -((colorajeter >> 16) & 0xFF);
@@ -1372,10 +1423,10 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
 
 
         }
-        for (int t=0; t<size; t++) {
-            //Log.i(" " + t, " " + tableaudessommesb[t]);
+        /*for (int t=0; t<size; t++) {
+            Log.i(" " + t, " " + tableaudessommesb[t]);
             //tableaudessommesb[t]=1;
-        }
+        }*/
 
 
 
@@ -1449,23 +1500,266 @@ public class MainActivity extends AppCompatActivity {// pour utiliser un dico
             cpt++;
 
         }
-        for (int t=0; t<size; t+=width) {
+        /*for (int t=0; t<size; t+=width) {
             //Log.i(" " + t/width, " " + resb[t]);
         }
         for (int t=1; t<size; t+=width) {
            // Log.i(" " + t/width, " " + resb[t]);
-        }
+        }*/
 
 
-
-        double diviseur=1+2*intensite;
-        diviseur*=diviseur;
+        double diviseur=0;
+        int x=0;
+        int y=0;
         for (int jo=0; jo<size;jo++){
-            int a=tab[jo]>>>24;
-            resr[jo]=a<<24 | (int)(((double)resr[jo]/diviseur)+0.5)<<16 |(int)(((double)resg[jo]/diviseur)+0.5)<<8 | (int)(((double)resb[jo]/diviseur)+0.5);
-            //System.out.println((double)resr[jo]/diviseur);
+            if (x>=width+1){
+                x=0;
+                y++;
+            }
+            if(x>=intensite && y>=intensite && (width-1-x)>=intensite && (height-1-y)>=intensite) {
+                diviseur=1+2*intensite;
+                diviseur*=diviseur;
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+                //System.out.println((double)resr[jo]/diviseur);
+            }
+            if(x<intensite){
+                if(y<intensite){
+                    diviseur=(x+intensite+1)*(y+intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+                if((height-1-y)<intensite){
+                    diviseur=(x+intensite+1)*((height-1-y)+intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+                if(y>=intensite && (height-1-y)>=intensite){
+                    diviseur=(x+intensite+1)*(2*intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+            }
+            else if((width-1-x)<intensite){
+                if(y<intensite){
+                    diviseur=((width-1-x)+intensite+1)*(y+intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+                if((height-1-y)<intensite){
+                    diviseur=((width-1-x)+intensite+1)*((height-1-y)+intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+                if(y>=intensite && (height-1-y)>=intensite){
+                    diviseur=((width-1-x)+intensite+1)*(2*intensite+1);
+                    int a = tab[jo] >>> 24;
+                    resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                    x++;
+                }
+            }
+            if(y<intensite && x>=intensite && (width-x)>=intensite){
+                diviseur=(2*intensite+1)*(y+intensite+1);
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }
+            if((height-1-y)<intensite && x>=intensite && (width-1-x)>=intensite){
+                diviseur=(2*intensite+1)*((height-1-y)+intensite+1);
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }
+            /*if(x<intensite && y<intensite){
+                diviseur=(x*(intensite+1)*(y*(intensite+1)));
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }
+            if(y<intensite && (width-x)<intensite){
+                diviseur=((width-x)*(intensite+1)*(y*(intensite+1)));
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }
+            if(x<intensite && (height-y)<intensite){
+                diviseur=(x*(intensite+1)*((height-y)*(intensite+1)));
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }
+            if((width-x)<intensite && (height-y)<intensite){
+                diviseur=((width-x)*(intensite+1)*((height-y)*(intensite+1)));
+                int a = tab[jo] >>> 24;
+                resr[jo] = a << 24 | (int) ((resr[jo] / diviseur) + 0.5) << 16 | (int) ((resg[jo] / diviseur) + 0.5) << 8 | (int) ((resb[jo] / diviseur) + 0.5);
+                x++;
+            }*/
 
         }
+        zoom.setPixels(resr, 0, width, 0, 0, width, height);
+        return zoom;
+    }
+
+
+
+    public Bitmap floumegarapide(Bitmap b, int intensite) {//on va essayer de passer une fois par pixel, et de réduire la complexité en mémoire. C'est méga chaud
+        int width = b.getWidth();
+        int height = b.getHeight();
+        Bitmap zoom = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        zoom.setDensity(b.getDensity());
+        int size = height * width;
+        int[] tab = new int[size];
+        int[] resr = new int[size];
+        int[] resg = new int[size];
+        int[] resb = new int[size];
+        int[]tableaudessommesr=new int[size];
+        int[]tableaudessommesb=new int[size];
+        int[]tableaudessommesg=new int[size];
+
+        b.getPixels(tab, 0, width, 0, 0, width, height);//Gets the array of the bitmap's pixels
+        int color;
+        int i;
+        int j=0;
+        int colorajeter;
+        //Log.i(" intensite", " "+ intensite);
+        /*for (i=0; i<size; i+=3){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x01;
+        }
+        for (i=1; i<size; i+=3){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x02;
+        }
+        for (i=2; i<size; i+=3){
+            tab[i]=0xFF << 24 | 0xFF << 16 | (0xFF)<< 8|0x03;
+        }*/
+        //shéma de l'algo
+        //on joue sur la commutativité de l'aadition pour travailler dans le présent, dans le futur et dans le passé et donc ne passer qu'une seule fois par pixel.
+        //le présent on lui ajoute la somme. mtn, dans le futur, il faudra enlever cette somme a la case en dessous de intensité cases, et dans
+        //le passé, il avait fallu l'ajouter à celle en haut. de plus la case juste en bas commence a cette somme.
+
+        int cpt=0;
+        while (j <size){
+            i=0;
+            int sommer=0,sommeb=0,sommeg=0;//ça c'est la somme horizontal
+            for (int iterateur=j; iterateur< j+intensite+1; iterateur++ ){
+                color=tab[iterateur];
+                sommer+= (color >> 16) & 0xFF;
+                sommeg+= (color >> 8) & 0xFF;
+                sommeb+= color & 0xFF;
+                //System.out.println(color & 0xFF);
+            }
+            resr[j+width]+=sommer;
+            resg[j+width]+=sommeg;
+            resb[j+width]+=sommeb;
+
+            resr[j+intensite*width]-=sommer;
+            resg[j+intensite*width]-=sommeg;
+            resg[j+intensite*width]-=sommeb;
+
+            resr[j-intensite*width]+=sommer;
+            resg[j-intensite*width]+=sommeg;
+            resg[j-intensite*width]+=sommeb;
+
+            j++;
+            i++;
+
+            //la on a la somme initiale, va falloir s'occuper de la premiere partie à part, ou on décale vers la droite mais on garde le pixel de gauche
+            while (i<=intensite){
+                color=tab[j+intensite];
+                sommer+= (color >> 16) & 0xFF;
+                sommeg+= (color >> 8) & 0xFF;
+                sommeb+= color & 0xFF;
+
+
+
+
+                resr[j]+=sommer;
+                resg[j]+=sommeg;
+                resb[j]+=sommeb;
+
+                resr[j+width]+=resr[j];
+                resg[j+width]+=resg[j];
+                resb[j+width]+=resb[j];
+
+                resr[j+intensite*width]-=sommer;//somme ou resb[j] à réfléchir
+                resg[j+intensite*width]-=sommeg;
+                resg[j+intensite*width]-=sommeb;
+
+                resr[j-intensite*width]+=sommer;//ça c'est pas dit ( pour le bloc)
+                resg[j-intensite*width]+=sommeg;
+                resg[j-intensite*width]+=sommeb;
+
+                i++;
+                j++;
+            }
+
+
+
+
+            //la normalement on a finis les étapes bizarres du début, on itere jsk la prochaine étape bizarre
+
+            while (i<width-intensite){
+                color=tab[j+intensite];
+                sommer+= (color >> 16) & 0xFF;
+                sommeg+= (color >> 8) & 0xFF;
+                sommeb+= color & 0xFF;
+
+
+                resr[j]+=sommer;
+                resg[j]+=sommeg;
+                resb[j]+=sommeb;
+
+                resr[j+intensite*width]-=sommer;
+                resg[j+intensite*width]-=sommeg;
+                resg[j+intensite*width]-=sommeb;
+
+                resr[j-intensite*width]+=sommer;
+                resg[j-intensite*width]+=sommeg;
+                resg[j-intensite*width]+=sommeb;
+
+                //tableaudessommesr[j]=tableaudessommesr[j-1]+ ((color >> 16) & 0xFF) -((colorajeter >> 16) & 0xFF);
+                //tableaudessommesg[j]=tableaudessommesg[j-1]+((color >> 8) & 0xFF) - ((colorajeter >> 8) & 0xFF);
+                //tableaudessommesb[j]=tableaudessommesb[j-1]+ (color & 0xFF) - (colorajeter & 0xFF);
+                i++;
+                j++;
+                //Log.i(" i=", " "+ i);
+            }
+
+            /*long t3 = System.currentTimeMillis();
+            Log.i(" ligne étape 2", " "+ (t3-t2));*/
+
+
+            //la faut aller jsk à la fin mais sans ajouter les cases d'aprés
+
+            while (i<width){//-1?
+                colorajeter=tab[j-intensite-1];
+                tableaudessommesr[j]=tableaudessommesr[j-1] - ((colorajeter >> 16) & 0xFF);
+                tableaudessommesg[j]=tableaudessommesg[j-1] - ((colorajeter >> 8) & 0xFF);
+                tableaudessommesb[j]=tableaudessommesb[j-1] - (colorajeter & 0xFF);
+                i++;
+                j++;
+
+            }
+            cpt++;//bon la j me rend compte qu'y a moyen d'économiser bcp de mémoire si on se passe d'une liste exhaustive de toute les somme pour ensuite faire une post
+            // traitement. ça demande d'alterner les phase de récup d'info et de remplissage du tableau final et c 'est trés chaud.
+            // une fois qu'on a remplit intensité lignes. On peut commencer à remplire notre tableau final et ainsi décharger la mémoire. à voir.
+            /*long t4 = System.currentTimeMillis();
+            Log.i(" ligne étape 3", " "+ (t4-t3));*/
+
+
+        }
+        /*for (int t=0; t<size; t++) {
+            Log.i(" " + t, " " + tableaudessommesb[t]);
+            //tableaudessommesb[t]=1;
+        }*/
+
+
+
         zoom.setPixels(resr, 0, width, 0, 0, width, height);
         return zoom;
     }
